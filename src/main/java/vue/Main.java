@@ -5,6 +5,7 @@
  */
 package vue;
 
+import dao.JpaUtil;
 import metier.modele.Client;
 import metier.service.ClientService;
 
@@ -22,15 +23,15 @@ public class Main {
         Client client2 = new Client("Yourcenar", "Marguerite", "vhugo@paris.fr", "Tooloose");
         Client client3 = new Client("Zola", "Emile", "ezola@gmail.com", "Lyon");
 
+        JpaUtil.creerFabriquePersistance();
 
         ClientService.inscrireClient(client1);
         ClientService.inscrireClient(client2);
         ClientService.inscrireClient(client3);
-        
+
         System.out.println(client1);
         System.out.println(client2);
         System.out.println(client3);
-        
 
     }
 

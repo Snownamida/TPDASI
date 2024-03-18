@@ -20,14 +20,13 @@ import dao.ClientDao;
 public class ClientService {
 
     public static Boolean inscrireClient(Client client) {
-
-        LatLng clientCoord = GeoNetApi.getLatLng(client.getAdressePostale());
-        if (clientCoord == null) {
-            sendErrorEmail(client, "Adresse postale invalide");
-            return false;
-        }
-
         try {
+            LatLng clientCoord = GeoNetApi.getLatLng(client.getAdressePostale());
+            if (clientCoord == null) {
+                sendErrorEmail(client, "Adresse postale invalide");
+                return false;
+            }
+
             client.setLatitude(clientCoord.lat);
             client.setLongitude(clientCoord.lng);
 
@@ -42,16 +41,14 @@ public class ClientService {
 
         } catch (RollbackException re) {
             re.printStackTrace();
-            sendErrorEmail(client, "Erreur lors de l'enregistrement dans la base de données (RollbackException)");
             JpaUtil.annulerTransaction();
-
+            sendErrorEmail(client, "Erreur lors de l'enregistrement dans la base de données (RollbackException)");
             return false;
 
         } catch (Exception e) {
             e.printStackTrace();
-            sendErrorEmail(client, "Erreur lors de l'enregistrement dans la base de données (Other Exception)");
             JpaUtil.annulerTransaction();
-
+            sendErrorEmail(client, "Erreur lors de l'enregistrement dans la base de données (Other Exception)");
             return false;
         }
     }

@@ -6,6 +6,8 @@
 package metier.modele;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 public class Client {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
     private String prenom;
@@ -29,6 +32,9 @@ public class Client {
     public String toString() {
         return String.format("Client:\nid=%s;nom=%s;prenom=%s;mail=%s;motDePasse=%s;adressePostale=%s;latitude=%s;longitude=%s;",
                 id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude);
+    }
+
+    public Client() {
     }
 
     public Client(String nom, String prenom, String mail, String adressePostale) {
