@@ -22,16 +22,19 @@ public class Main {
         Client client1 = new Client("Hugo", "Victor", "vhugo@paris.fr", "Paris");
         Client client2 = new Client("Yourcenar", "Marguerite", "vhugo@paris.fr", "Tooloose");
         Client client3 = new Client("Zola", "Emile", "ezola@gmail.com", "Lyon");
+        Client client4 = new Client("SUN", "Jixiang", "namida@gmail.com", "Nanjing");
 
         JpaUtil.creerFabriquePersistance();
 
         ClientService.inscrireClient(client1);
         ClientService.inscrireClient(client2);
         ClientService.inscrireClient(client3);
+        ClientService.inscrireClient(client4);
 
         System.out.println(client1);
         System.out.println(client2);
         System.out.println(client3);
+        System.out.println(client4);
 
     }
 
