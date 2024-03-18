@@ -5,6 +5,7 @@
  */
 package metier.modele;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class Client {
     private Long id;
     private String nom;
     private String prenom;
+    @Column(unique = true)
     private String mail;
     private String motDePasse;
     private String adressePostale;
@@ -30,7 +32,8 @@ public class Client {
 
     @Override
     public String toString() {
-        return String.format("Client:\nid=%s;nom=%s;prenom=%s;mail=%s;motDePasse=%s;adressePostale=%s;latitude=%s;longitude=%s;",
+        return String.format(
+                "Client:\nid=%s;nom=%s;prenom=%s;mail=%s;motDePasse=%s;adressePostale=%s;latitude=%s;longitude=%s;",
                 id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude);
     }
 

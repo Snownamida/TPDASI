@@ -53,6 +53,45 @@ public class ClientService {
         }
     }
 
+    // Ce service identifie un client à partir de son adresse mail, puis vérifie si
+    // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
+    // renvoie l'entité Client si l'authentification a réussie, ou null en cas
+    // d'échec.
+    public static Client authentifierClient(String mail, String motDePasse) {
+
+        JpaUtil.creerContextePersistance();
+        Client client = ClientDao.findByEmail(mail);
+        if (client != null && client.getMotDePasse().equals(motDePasse)) {
+            return client;
+        } else {
+            return null;
+        }
+    }
+
+    public static Boolean updatePassword(Client client, String newPassword) {
+        try {
+            JpaUtil.creerContextePersistance();
+            JpaUtil.ouvrirTransaction();
+            client.setMotDePasse(newPassword);
+            ClientDao.update(client);
+            JpaUtil.validerTransaction();
+            return true;
+        } catch (RollbackException re) {
+            re.printStackTrace();
+            JpaUtil.annulerTransaction();
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JpaUtil.annulerTransaction();
+            return false;
+        }
+    }
+
+    public static Client chercherClientParMail(String mail) {
+        JpaUtil.creerContextePersistance();
+        return ClientDao.findByEmail(mail);
+    }
+
     private static void sendConfirmationEmail(Client client) {
         String subject = "Inscription réussie";
         String body = "Merci, votre inscription a été enregistrée avec succès.";
