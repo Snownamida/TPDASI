@@ -59,7 +59,11 @@ public class Main {
             System.out.println("认证失败");
         }
 
+        System.out.println("数据库中的客户们 : ");
+        System.out.println(ClientService.consulterListeClients());
+
         JpaUtil.fermerFabriquePersistance();
+        
 
     }
 

@@ -34,6 +34,18 @@ public class ClientDao {
 
     }
 
+    public static Client findById(Long id) {
+        return JpaUtil.obtenirContextePersistance().find(Client.class, id);
+    }
+
+    // Ce service renvoie toutes les entités Client triées par ordre alphabétique
+    // (nom/prénom).
+    public static List<Client> getAll() {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c ORDER BY c.nom, c.prenom", Client.class);
+        return query.getResultList();
+    }
+
     public static void update(Client client) {
         JpaUtil.obtenirContextePersistance().merge(client);
     }

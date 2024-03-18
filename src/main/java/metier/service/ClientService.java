@@ -12,6 +12,7 @@ import javax.persistence.RollbackException;
 import util.GeoNetApi;
 import util.Message;
 import dao.ClientDao;
+import java.util.List;
 
 /**
  *
@@ -90,6 +91,18 @@ public class ClientService {
     public static Client chercherClientParMail(String mail) {
         JpaUtil.creerContextePersistance();
         return ClientDao.findByEmail(mail);
+    }
+
+    public static Client chercherClientParId(Long id) {
+        JpaUtil.creerContextePersistance();
+        return ClientDao.findById(id);
+    }
+
+    // Ce service renvoie toutes les entités Client triées par ordre alphabétique
+    // (nom/prénom).
+    public static List<Client> consulterListeClients() {
+        JpaUtil.creerContextePersistance();
+        return ClientDao.getAll();
     }
 
     private static void sendConfirmationEmail(Client client) {
