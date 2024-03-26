@@ -136,4 +136,12 @@ public class Client {
         this.birthdate = birthdate;
     }
 
+    public AstralProfile getAstralProfile() {
+        return astralProfile;
+    }
+
+    public void setAstralProfile(AstralProfile astralProfile) {
+        this.astralProfile = astralProfile;
+    }
+
 }
