@@ -24,7 +24,7 @@ public class Employee {
     private String nom;
     private String prenom;
     @Column(unique = true)
-    private String mail;
+    private String email;
     private String motDePasse;
     private String sex;
     private String phone;
@@ -33,16 +33,16 @@ public class Employee {
     @Override
     public String toString() {
         return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, phone=%s]",
-                id, nom, prenom, mail, phone);
+                id, nom, prenom, email, phone);
     }
 
-    public Employee() {
+    protected Employee() {
     }
 
     public Employee(String nom, String prenom, String mail, String motDePasse, String sex, String phone) {
         this.nom = nom;
         this.prenom = prenom;
-        this.mail = mail;
+        this.email = mail;
         this.motDePasse = motDePasse;
         this.sex = sex;
         this.phone = phone;
@@ -76,8 +76,8 @@ public class Employee {
         this.prenom = prenom;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String mail) {
+        this.email = mail;
     }
 
     public void setMotDePasse(String motDePasse) {
@@ -96,8 +96,8 @@ public class Employee {
         return prenom;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
     public String getMotDePasse() {

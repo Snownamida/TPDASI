@@ -5,7 +5,11 @@
  */
 package metier.modele;
 
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,8 +36,7 @@ public class Client {
     private Double longitude;
     private String phone;
     private Date birthdate;
-    @OneToOne
-
+    @Embedded
     private AstralProfile astralProfile;
 
     @Override
@@ -43,10 +46,11 @@ public class Client {
                 id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude, phone);
     }
 
-    public Client() {
+    protected Client() {
     }
 
-    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone, String birthdate) {
+    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone,
+            Date birthdate) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -132,7 +136,7 @@ public class Client {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 

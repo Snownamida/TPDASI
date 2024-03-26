@@ -23,6 +23,9 @@ public class Consultation {
     private int duree;
     private String commentaire;
 
+    protected Consultation() {
+    }
+
     public Consultation(String date, int duree, String commentaire) {
         this.date = date;
         this.duree = duree;

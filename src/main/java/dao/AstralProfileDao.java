@@ -8,8 +8,6 @@ public class AstralProfileDao {
         JpaUtil.obtenirContextePersistance().persist(astralProfile);
     }
 
-    public static AstralProfile findById(Long id) {
-        return JpaUtil.obtenirContextePersistance().find(AstralProfile.class, id);
-    }
+
 
 }

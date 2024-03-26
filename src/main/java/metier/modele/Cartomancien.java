@@ -13,6 +13,9 @@ import javax.persistence.Entity;
 @Entity
 public class Cartomancien extends Medium {
 
+    protected Cartomancien() {
+    }
+
     public Cartomancien(String denomination, String presentation, String genre, String profilePhotoPath) {
         super(denomination, presentation, genre, profilePhotoPath);
     }
