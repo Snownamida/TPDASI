@@ -4,22 +4,16 @@
  */
 package metier.modele;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author snownamida
  */
 
-@Entity
+@Embeddable
 public class AstralProfile {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String couleurPorteBonheur;
     private String animalTotem;
     private String signeAstroChinois;
