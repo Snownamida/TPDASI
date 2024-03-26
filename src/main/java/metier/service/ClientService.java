@@ -44,17 +44,12 @@ public class ClientService {
 
     AstralProfile astralProfile = new AstralProfile(couleur, animal, signeChinois, signeZodiaque);
 
-client.setAstralProfile(astralProfile);
-    System.out.println("~<[ Profil ]>~");
-    System.out.println("[Profil] Signe du Zodiaque: " + signeZodiaque);
-    System.out.println("[Profil] Signe Chinois: " + signeChinois);
-    System.out.println("[Profil] Couleur porte-bonheur: " + couleur);
-    System.out.println("[Profil] Animal-totem: " + animal);
-
+        client.setAstralProfile(astralProfile);
 
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             ClientDao.create(client);
+            AstralProfileDao.create(astralProfile);
             JpaUtil.validerTransaction();
 
             // Send confirmation email
