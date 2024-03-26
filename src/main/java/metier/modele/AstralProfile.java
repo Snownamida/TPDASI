@@ -21,14 +21,12 @@ public class AstralProfile {
     private String animalTotem;
     private String signeAstroChinois;
     private String signeDuZodiaque;
-    private String codeRGBCouleur;
 
     public AstralProfile(String couleurPorteBonheur, String animalTotem, String signeAstroChinois, String signeDuZodiaque, String codeRGBCouleur) {
         this.couleurPorteBonheur = couleurPorteBonheur;
         this.animalTotem = animalTotem;
         this.signeAstroChinois = signeAstroChinois;
         this.signeDuZodiaque = signeDuZodiaque;
-        this.codeRGBCouleur = codeRGBCouleur;
     }
 
     public String getCouleurPorteBonheur() {
@@ -61,14 +59,6 @@ public class AstralProfile {
 
     public void setSigneDuZodiaque(String signeDuZodiaque) {
         this.signeDuZodiaque = signeDuZodiaque;
-    }
-
-    public String getCodeRGBCouleur() {
-        return codeRGBCouleur;
-    }
-
-    public void setCodeRGBCouleur(String codeRGBCouleur) {
-        this.codeRGBCouleur = codeRGBCouleur;
     }
 
 }

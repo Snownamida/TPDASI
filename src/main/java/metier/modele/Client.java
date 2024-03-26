@@ -31,7 +31,7 @@ public class Client {
     private Double latitude;
     private Double longitude;
     private String phone;
-    private String birthdate;
+    private Date birthdate;
     @OneToOne
 
     private AstralProfile astralProfile;
@@ -128,7 +128,7 @@ public class Client {
         return phone;
     }
 
-    public String getBirthdate() {
+    public Date getBirthdate() {
         return birthdate;
     }
 

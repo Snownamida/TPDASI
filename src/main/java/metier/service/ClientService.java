@@ -31,6 +31,27 @@ public class ClientService {
             client.setLatitude(clientCoord.lat);
             client.setLongitude(clientCoord.lng);
 
+    AstroNetApi astroApi = new AstroNetApi();
+
+    String prenom = client.getprenom;
+    Date dateNaissance = client.getbirthdate;
+
+    List<String> profil = astroApi.getProfil(prenom, dateNaissance);
+    String signeZodiaque = profil.get(0);
+    String signeChinois = profil.get(1);
+    String couleur = profil.get(2);
+    String animal = profil.get(3);
+
+    AstralProfile astralProfile = new AstralProfile(couleur, animal, signeChinois, signeZodiaque);
+
+client.setAstralProfile(astralProfile);
+    System.out.println("~<[ Profil ]>~");
+    System.out.println("[Profil] Signe du Zodiaque: " + signeZodiaque);
+    System.out.println("[Profil] Signe Chinois: " + signeChinois);
+    System.out.println("[Profil] Couleur porte-bonheur: " + couleur);
+    System.out.println("[Profil] Animal-totem: " + animal);
+
+
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             ClientDao.create(client);
