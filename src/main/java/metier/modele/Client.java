@@ -46,7 +46,7 @@ public class Client {
                 id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude, phone);
     }
 
-    public Client() {
+    protected Client() {
     }
 
     public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone,

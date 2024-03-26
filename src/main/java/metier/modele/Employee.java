@@ -36,7 +36,7 @@ public class Employee {
                 id, nom, prenom, mail, phone);
     }
 
-    public Employee() {
+    protected Employee() {
     }
 
     public Employee(String nom, String prenom, String mail, String motDePasse, String sex, String phone) {

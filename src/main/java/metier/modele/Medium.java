@@ -24,6 +24,9 @@ public class Medium {
     private String genre;
     private String profilePhotoPath;
 
+    protected Medium() {
+    }
+
     public Medium(String denomination, String presentation, String genre, String profilePhotoPath) {
         this.denomination = denomination;
         this.presentation = presentation;

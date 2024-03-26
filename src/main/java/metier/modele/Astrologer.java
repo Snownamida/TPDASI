@@ -16,7 +16,10 @@ public class Astrologer extends Medium {
     private String formation;
     private String promotion;
 
-    public Astrologer(String formation, String promotion, String denomination, String presentation, String genre, String profilePhotoPath) {
+  
+
+    public Astrologer(String formation, String promotion, String denomination, String presentation, String genre,
+            String profilePhotoPath) {
         super(denomination, presentation, genre, profilePhotoPath);
         this.formation = formation;
         this.promotion = promotion;
