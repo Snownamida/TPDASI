@@ -4,10 +4,13 @@
  */
 package metier.modele;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author snownamida
  */
+@Entity
 public class Cartomancien extends Medium {
 
     public Cartomancien(String denomination, String presentation, String genre, String profilePhotoPath) {

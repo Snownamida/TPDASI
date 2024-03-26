@@ -4,10 +4,13 @@
  */
 package metier.modele;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author snownamida
  */
+@Entity
 public class Astrologer extends Medium {
 
     private String formation;

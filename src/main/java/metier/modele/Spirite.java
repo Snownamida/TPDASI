@@ -4,10 +4,13 @@
  */
 package metier.modele;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author snownamida
  */
+@Entity
 public class Spirite extends Medium {
 
     private String support;

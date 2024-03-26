@@ -6,8 +6,10 @@ package dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
+import metier.modele.Client;
+
 import java.util.List;
-import metier.modele.Employee;
 
 /**
  *
@@ -15,15 +17,15 @@ import metier.modele.Employee;
  */
 public class ClientDao {
 
-    public static void create(Employee client) {
+    public static void create(Client client) {
         JpaUtil.obtenirContextePersistance().persist(client);
     }
 
-    public static Employee findByEmail(String mail) {
+    public static Client findByEmail(String mail) {
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Client c WHERE c.mail = :mail", Employee.class);
+        TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c WHERE c.mail = :mail", Client.class);
         query.setParameter("mail", mail);
-        List<Employee> results = query.getResultList();
+        List<Client> results = query.getResultList();
         if (!results.isEmpty()) {
             // 返回第一个找到的客户（如果有）
             return results.get(0);
@@ -34,19 +36,19 @@ public class ClientDao {
 
     }
 
-    public static Employee findById(Long id) {
-        return JpaUtil.obtenirContextePersistance().find(Employee.class, id);
+    public static Client findById(Long id) {
+        return JpaUtil.obtenirContextePersistance().find(Client.class, id);
     }
 
     // Ce service renvoie toutes les entités Client triées par ordre alphabétique
     // (nom/prénom).
-    public static List<Employee> getAll() {
+    public static List<Client> getAll() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
-        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Client c ORDER BY c.nom, c.prenom", Employee.class);
+        TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c ORDER BY c.nom, c.prenom", Client.class);
         return query.getResultList();
     }
 
-    public static void update(Employee client) {
+    public static void update(Client client) {
         JpaUtil.obtenirContextePersistance().merge(client);
     }
 
