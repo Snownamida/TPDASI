@@ -75,4 +75,5 @@ public class AstralProfile {
         this.codeRGBCouleur = codeRGBCouleur;
     }
 
+
 }
