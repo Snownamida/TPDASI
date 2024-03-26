@@ -6,14 +6,13 @@
 
 package metier.service;
 
-import com.google.maps.model.LatLng;
+import java.util.List;
+
+import javax.persistence.RollbackException;
+
+import dao.EmployeeDao;
 import dao.JpaUtil;
 import metier.modele.Employee;
-import javax.persistence.RollbackException;
-import util.GeoNetApi;
-import util.Message;
-import dao.ClientDao;
-import java.util.List;
 
 /**
  *
@@ -23,12 +22,15 @@ public class EmployeeService {
 
     public static Boolean InitEmployee() {
 
-        Employee emp1 = new Employee("Smith", "John", "john.smith@predictif.fr", "password1", "male", "1234567890", true);
-        Employee emp2 = new Employee("Johnson", "Mary", "mary.johnson@predictif.fr", "password2", "female", "2345678901", false);
-        Employee emp3 = new Employee("Brown", "James", "james.brown@predictif.fr", "password3", "male", "3456789012", true);
+        Employee emp1 = new Employee("Smith", "John", "john.smith@predictif.fr", "password1", "male", "1234567890",
+                true);
+        Employee emp2 = new Employee("Johnson", "Mary", "mary.johnson@predictif.fr", "password2", "female",
+                "2345678901", false);
+        Employee emp3 = new Employee("Brown", "James", "james.brown@predictif.fr", "password3", "male", "3456789012",
+                true);
 
-try {           
- JpaUtil.creerContextePersistance();
+        try {
+            JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             EmployeeDao.create(emp1);
             EmployeeDao.create(emp2);

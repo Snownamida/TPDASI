@@ -20,7 +20,7 @@ public class AstralProfile {
     private String signeDuZodiaque;
 
     public AstralProfile(String couleurPorteBonheur, String animalTotem, String signeAstroChinois,
-            String signeDuZodiaque, String codeRGBCouleur) {
+            String signeDuZodiaque) {
         this.couleurPorteBonheur = couleurPorteBonheur;
         this.animalTotem = animalTotem;
         this.signeAstroChinois = signeAstroChinois;

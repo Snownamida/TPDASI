@@ -5,9 +5,6 @@
  */
 
 package metier.service;
-import EmployeeService;
-import ClientService;
-
 
 /**
  *
@@ -15,7 +12,7 @@ import ClientService;
  */
 public class AuthenticationService {
     public static void Authenticate(String email, String password) {
-     
+
         // Extract domain name
         String[] parts = email.split("@");
         if (parts.length == 2) {
@@ -29,8 +26,5 @@ public class AuthenticationService {
         } else {
             System.out.println("Invalid email format");
         }
-    }   
     }
-
-
 }

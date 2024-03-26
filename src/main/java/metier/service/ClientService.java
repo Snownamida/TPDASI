@@ -12,6 +12,7 @@ import javax.persistence.RollbackException;
 
 import com.google.maps.model.LatLng;
 
+import dao.AstralProfileDao;
 import dao.ClientDao;
 import dao.JpaUtil;
 import metier.modele.AstralProfile;
@@ -39,8 +40,8 @@ public class ClientService {
 
             AstroNetApi astroApi = new AstroNetApi();
 
-            String prenom = client.getprenom;
-            Date dateNaissance = client.getbirthdate;
+            String prenom = client.getPrenom();
+            Date dateNaissance = client.getBirthdate();
 
             List<String> profil = astroApi.getProfil(prenom, dateNaissance);
             String signeZodiaque = profil.get(0);
@@ -48,9 +49,9 @@ public class ClientService {
             String couleur = profil.get(2);
             String animal = profil.get(3);
 
-    AstralProfile astralProfile = new AstralProfile(couleur, animal, signeChinois, signeZodiaque);
+            AstralProfile astralProfile = new AstralProfile(couleur, animal, signeChinois, signeZodiaque);
 
-        client.setAstralProfile(astralProfile);
+            client.setAstralProfile(astralProfile);
 
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();

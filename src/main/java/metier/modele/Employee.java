@@ -39,13 +39,15 @@ public class Employee {
     protected Employee() {
     }
 
-    public Employee(String nom, String prenom, String mail, String motDePasse, String sex, String phone) {
+    public Employee(String nom, String prenom, String email, String motDePasse, String sex, String phone,
+            Boolean available) {
         this.nom = nom;
         this.prenom = prenom;
-        this.email = mail;
+        this.email = email;
         this.motDePasse = motDePasse;
         this.sex = sex;
         this.phone = phone;
+        this.available = available;
     }
 
     public String getSex() {
