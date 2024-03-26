@@ -19,6 +19,9 @@ public class AstralProfile {
     private String signeAstroChinois;
     private String signeDuZodiaque;
 
+    protected AstralProfile() {
+    }
+
     public AstralProfile(String couleurPorteBonheur, String animalTotem, String signeAstroChinois,
             String signeDuZodiaque) {
         this.couleurPorteBonheur = couleurPorteBonheur;

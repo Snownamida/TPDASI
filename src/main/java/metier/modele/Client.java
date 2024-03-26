@@ -7,14 +7,14 @@ package metier.modele;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -35,6 +35,7 @@ public class Client {
     private Double latitude;
     private Double longitude;
     private String phone;
+    @Temporal(TemporalType.DATE)
     private Date birthdate;
     @Embedded
     private AstralProfile astralProfile;

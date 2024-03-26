@@ -16,6 +16,8 @@ public class Astrologer extends Medium {
     private String formation;
     private String promotion;
 
+    protected Astrologer() {
+    }
   
 
     public Astrologer(String formation, String promotion, String denomination, String presentation, String genre,
