@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author jsun
  */
 @Entity
-public class Client {
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +26,9 @@ public class Client {
     @Column(unique = true)
     private String mail;
     private String motDePasse;
-    private String adressePostale;
-    private Double latitude;
-    private Double longitude;
+    private String sex;
     private String phone;
-    private String birthdate;
+    private Boolean available;
 
     @Override
     public String toString() {
@@ -39,17 +37,32 @@ public class Client {
                 id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude, phone);
     }
 
-    public Client() {
+    public Employee() {
     }
 
-    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone, String birthdate) {
+    public Employee(String nom, String prenom, String mail, String motDePasse, String sex, String phone) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
-        this.adressePostale = adressePostale;
+        this.sex = sex;
         this.phone = phone;
-        this.birthdate = birthdate;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public void setId(Long id) {
@@ -122,14 +135,6 @@ public class Client {
 
     public String getPhone() {
         return phone;
-    }
-
-    public String getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
     }
 
 }

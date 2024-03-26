@@ -6,7 +6,7 @@
 package vue;
 
 import dao.JpaUtil;
-import metier.modele.Client;
+import metier.modele.Employee;
 import metier.service.ClientService;
 
 /**
@@ -19,10 +19,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Client client1 = new Client("Hugo", "Victor", "vhugo@paris.fr", "Paris");
-        Client client2 = new Client("Yourcenar", "Marguerite", "vhugo@paris.fr", "Tooloose");
-        Client client3 = new Client("Zola", "Emile", "ezola@gmail.com", "Lyon");
-        Client client4 = new Client("SUN", "Jixiang", "namida@gmail.com", "Nanjing");
+        Employee client1 = new Employee("Hugo", "Victor", "vhugo@paris.fr", "Paris");
+        Employee client2 = new Employee("Yourcenar", "Marguerite", "vhugo@paris.fr", "Tooloose");
+        Employee client3 = new Employee("Zola", "Emile", "ezola@gmail.com", "Lyon");
+        Employee client4 = new Employee("SUN", "Jixiang", "namida@gmail.com", "Nanjing");
         // Client client5 = new Client("Snow", "Namida", "namida@gmail.com", "Nanjing");
 
         JpaUtil.creerFabriquePersistance();
@@ -45,7 +45,7 @@ public class Main {
         System.out.println(client4);
         // System.out.println(client5);
 
-        Client testClient = ClientService.authentifierClient("namida@gmail.com", "错误的密码");
+        Employee testClient = ClientService.authentifierClient("namida@gmail.com", "错误的密码");
         if (testClient != null) {
             System.out.println("认证成功 : " + testClient);
         } else {

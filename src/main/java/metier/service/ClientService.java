@@ -7,7 +7,7 @@ package metier.service;
 
 import com.google.maps.model.LatLng;
 import dao.JpaUtil;
-import metier.modele.Client;
+import metier.modele.Employee;
 import javax.persistence.RollbackException;
 import util.GeoNetApi;
 import util.Message;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ClientService {
 
-    public static Boolean inscrireClient(Client client) {
+    public static Boolean inscrireClient(Employee client) {
         try {
             LatLng clientCoord = GeoNetApi.getLatLng(client.getAdressePostale());
             if (clientCoord == null) {
@@ -58,10 +58,10 @@ public class ClientService {
     // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
     // renvoie l'entité Client si l'authentification a réussie, ou null en cas
     // d'échec.
-    public static Client authentifierClient(String mail, String motDePasse) {
+    public static Employee authentifierClient(String mail, String motDePasse) {
 
         JpaUtil.creerContextePersistance();
-        Client client = ClientDao.findByEmail(mail);
+        Employee client = ClientDao.findByEmail(mail);
         if (client != null && client.getMotDePasse().equals(motDePasse)) {
             return client;
         } else {
@@ -69,7 +69,7 @@ public class ClientService {
         }
     }
 
-    public static Boolean updatePassword(Client client, String newPassword) {
+    public static Boolean updatePassword(Employee client, String newPassword) {
         try {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
@@ -88,31 +88,31 @@ public class ClientService {
         }
     }
 
-    public static Client chercherClientParMail(String mail) {
+    public static Employee chercherClientParMail(String mail) {
         JpaUtil.creerContextePersistance();
         return ClientDao.findByEmail(mail);
     }
 
-    public static Client chercherClientParId(Long id) {
+    public static Employee chercherClientParId(Long id) {
         JpaUtil.creerContextePersistance();
         return ClientDao.findById(id);
     }
 
     // Ce service renvoie toutes les entités Client triées par ordre alphabétique
     // (nom/prénom).
-    public static List<Client> consulterListeClients() {
+    public static List<Employee> consulterListeClients() {
         JpaUtil.creerContextePersistance();
         return ClientDao.getAll();
     }
 
-    private static void sendConfirmationEmail(Client client) {
+    private static void sendConfirmationEmail(Employee client) {
         String subject = "Inscription réussie";
         String body = "Merci, votre inscription a été enregistrée avec succès.";
 
         Message.envoyerMail("noreply@votreentreprise.com", client.getMail(), subject, body);
     }
 
-    private static void sendErrorEmail(Client client, String error) {
+    private static void sendErrorEmail(Employee client, String error) {
         String subject = "Erreur lors de l'inscription";
         String body = "Désolé, une erreur est survenue lors de votre inscription.\nErreur : " + error;
 
