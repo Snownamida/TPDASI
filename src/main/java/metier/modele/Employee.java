@@ -32,9 +32,8 @@ public class Employee {
 
     @Override
     public String toString() {
-        return String.format(
-                "Client:\nid=%s;nom=%s;prenom=%s;mail=%s;motDePasse=%s;adressePostale=%s;latitude=%s;longitude=%s;phone=%s",
-                id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude, phone);
+        return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, phone=%s]",
+                id, nom, prenom, mail, phone);
     }
 
     public Employee() {
@@ -85,18 +84,6 @@ public class Employee {
         this.motDePasse = motDePasse;
     }
 
-    public void setAdressePostale(String adressePostale) {
-        this.adressePostale = adressePostale;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
     public Long getId() {
         return id;
     }
@@ -115,18 +102,6 @@ public class Employee {
 
     public String getMotDePasse() {
         return motDePasse;
-    }
-
-    public String getAdressePostale() {
-        return adressePostale;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public Double getLongitude() {
-        return longitude;
     }
 
     public void setPhone(String phone) {

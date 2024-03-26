@@ -4,12 +4,19 @@
  */
 package metier.modele;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author snownamida
  */
 public class Consultation {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String date;
     private int duree;
     private String commentaire;

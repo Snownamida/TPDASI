@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -31,6 +32,9 @@ public class Client {
     private Double longitude;
     private String phone;
     private String birthdate;
+    @OneToOne
+
+    private AstralProfile astralProfile;
 
     @Override
     public String toString() {
