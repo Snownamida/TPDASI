@@ -5,14 +5,20 @@
  */
 package metier.service;
 
-import com.google.maps.model.LatLng;
-import dao.JpaUtil;
-import metier.modele.Employee;
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.RollbackException;
+
+import com.google.maps.model.LatLng;
+
+import dao.ClientDao;
+import dao.JpaUtil;
+import metier.modele.AstralProfile;
+import metier.modele.Client;
+import util.AstroNetApi;
 import util.GeoNetApi;
 import util.Message;
-import dao.ClientDao;
-import java.util.List;
 
 /**
  *
@@ -20,7 +26,7 @@ import java.util.List;
  */
 public class ClientService {
 
-    public static Boolean inscrireClient(Employee client) {
+    public static Boolean inscrireClient(Client client) {
         try {
             LatLng clientCoord = GeoNetApi.getLatLng(client.getAdressePostale());
             if (clientCoord == null) {
@@ -31,26 +37,25 @@ public class ClientService {
             client.setLatitude(clientCoord.lat);
             client.setLongitude(clientCoord.lng);
 
-    AstroNetApi astroApi = new AstroNetApi();
+            AstroNetApi astroApi = new AstroNetApi();
 
-    String prenom = client.getprenom;
-    Date dateNaissance = client.getbirthdate;
+            String prenom = client.getprenom;
+            Date dateNaissance = client.getbirthdate;
 
-    List<String> profil = astroApi.getProfil(prenom, dateNaissance);
-    String signeZodiaque = profil.get(0);
-    String signeChinois = profil.get(1);
-    String couleur = profil.get(2);
-    String animal = profil.get(3);
+            List<String> profil = astroApi.getProfil(prenom, dateNaissance);
+            String signeZodiaque = profil.get(0);
+            String signeChinois = profil.get(1);
+            String couleur = profil.get(2);
+            String animal = profil.get(3);
 
-    AstralProfile astralProfile = new AstralProfile(couleur, animal, signeChinois, signeZodiaque);
+            AstralProfile astralProfile = new AstralProfile(couleur, animal, signeChinois, signeZodiaque);
 
-client.setAstralProfile(astralProfile);
-    System.out.println("~<[ Profil ]>~");
-    System.out.println("[Profil] Signe du Zodiaque: " + signeZodiaque);
-    System.out.println("[Profil] Signe Chinois: " + signeChinois);
-    System.out.println("[Profil] Couleur porte-bonheur: " + couleur);
-    System.out.println("[Profil] Animal-totem: " + animal);
-
+            client.setAstralProfile(astralProfile);
+            System.out.println("~<[ Profil ]>~");
+            System.out.println("[Profil] Signe du Zodiaque: " + signeZodiaque);
+            System.out.println("[Profil] Signe Chinois: " + signeChinois);
+            System.out.println("[Profil] Couleur porte-bonheur: " + couleur);
+            System.out.println("[Profil] Animal-totem: " + animal);
 
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
@@ -79,10 +84,10 @@ client.setAstralProfile(astralProfile);
     // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
     // renvoie l'entité Client si l'authentification a réussie, ou null en cas
     // d'échec.
-    public static Employee authentifierClient(String mail, String motDePasse) {
+    public static Client authentifierClient(String mail, String motDePasse) {
 
         JpaUtil.creerContextePersistance();
-        Employee client = ClientDao.findByEmail(mail);
+        Client client = ClientDao.findByEmail(mail);
         if (client != null && client.getMotDePasse().equals(motDePasse)) {
             return client;
         } else {
@@ -90,50 +95,31 @@ client.setAstralProfile(astralProfile);
         }
     }
 
-    public static Boolean updatePassword(Employee client, String newPassword) {
-        try {
-            JpaUtil.creerContextePersistance();
-            JpaUtil.ouvrirTransaction();
-            client.setMotDePasse(newPassword);
-            ClientDao.update(client);
-            JpaUtil.validerTransaction();
-            return true;
-        } catch (RollbackException re) {
-            re.printStackTrace();
-            JpaUtil.annulerTransaction();
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            JpaUtil.annulerTransaction();
-            return false;
-        }
-    }
-
-    public static Employee chercherClientParMail(String mail) {
+    public static Client chercherClientParMail(String mail) {
         JpaUtil.creerContextePersistance();
         return ClientDao.findByEmail(mail);
     }
 
-    public static Employee chercherClientParId(Long id) {
+    public static Client chercherClientParId(Long id) {
         JpaUtil.creerContextePersistance();
         return ClientDao.findById(id);
     }
 
     // Ce service renvoie toutes les entités Client triées par ordre alphabétique
     // (nom/prénom).
-    public static List<Employee> consulterListeClients() {
+    public static List<Client> consulterListeClients() {
         JpaUtil.creerContextePersistance();
         return ClientDao.getAll();
     }
 
-    private static void sendConfirmationEmail(Employee client) {
+    private static void sendConfirmationEmail(Client client) {
         String subject = "Inscription réussie";
         String body = "Merci, votre inscription a été enregistrée avec succès.";
 
         Message.envoyerMail("noreply@votreentreprise.com", client.getMail(), subject, body);
     }
 
-    private static void sendErrorEmail(Employee client, String error) {
+    private static void sendErrorEmail(Client client, String error) {
         String subject = "Erreur lors de l'inscription";
         String body = "Désolé, une erreur est survenue lors de votre inscription.\nErreur : " + error;
 

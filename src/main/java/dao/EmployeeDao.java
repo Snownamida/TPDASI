@@ -4,6 +4,11 @@
  */
 package dao;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import metier.modele.Employee;
 
 /**
@@ -18,5 +23,27 @@ public class EmployeeDao {
 
     public static void update(Employee employee) {
         JpaUtil.obtenirContextePersistance().merge(employee);
+    }
+
+    public static Employee findByEmail(String email) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c WHERE c.email = :email", Employee.class);
+        query.setParameter("email", email);
+        List<Employee> results = query.getResultList();
+        if (!results.isEmpty()) {
+            // 返回第一个找到的客户（如果有）
+            return results.get(0);
+        } else {
+            // 没有找到与该电子邮件相对应的客户
+            return null;
+        }
+    }
+
+    // getAll
+
+    public static List<Employee> getAll() {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c", Employee.class);
+        return query.getResultList();
     }
 }
