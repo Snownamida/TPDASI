@@ -3,6 +3,13 @@
   <persistence-unit name="dasi_TP_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>metier.modele.Employee</class>
+    <class>metier.modele.Client</class>
+    <class>metier.modele.AstralProfile</class>
+    <class>metier.modele.Astrologer</class>
+    <class>metier.modele.Cartomancien</class>
+    <class>metier.modele.Consultation</class>
+    <class>metier.modele.Spirite</class>
+    <class>metier.modele.Medium</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/DASI TP DB"/>
       <property name="javax.persistence.jdbc.user" value="dasi"/>
