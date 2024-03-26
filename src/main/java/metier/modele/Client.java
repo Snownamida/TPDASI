@@ -7,6 +7,7 @@ package metier.modele;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -34,8 +35,7 @@ public class Client {
     private Double longitude;
     private String phone;
     private Date birthdate;
-    @OneToOne
-
+    @OneToOne(cascade = CascadeType.ALL)
     private AstralProfile astralProfile;
 
     @Override
