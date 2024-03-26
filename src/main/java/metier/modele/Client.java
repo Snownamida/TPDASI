@@ -5,6 +5,8 @@
  */
 package metier.modele;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,7 +48,8 @@ public class Client {
     public Client() {
     }
 
-    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone, String birthdate) {
+    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone,
+            Date birthdate) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
@@ -132,7 +135,7 @@ public class Client {
         return birthdate;
     }
 
-    public void setBirthdate(String birthdate) {
+    public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
     }
 
