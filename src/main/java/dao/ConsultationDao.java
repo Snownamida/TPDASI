@@ -19,7 +19,4 @@ public class ConsultationDao {
     public static void update(Consultation consultation) {
         JpaUtil.obtenirContextePersistance().merge(consultation);
     }
-
-
-
 }
