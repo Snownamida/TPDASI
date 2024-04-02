@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import metier.modele.Client;
 import metier.modele.Employee;
 
 /**
@@ -37,6 +38,10 @@ public class EmployeeDao {
             // 没有找到与该电子邮件相对应的客户
             return null;
         }
+    }
+
+    public static Employee findById(Long id) {
+        return JpaUtil.obtenirContextePersistance().find(Employee.class, id);
     }
 
     // getAll

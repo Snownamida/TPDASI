@@ -79,14 +79,14 @@ public class ClientService {
     // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
     // renvoie l'entité Client si l'authentification a réussie, ou null en cas
     // d'échec.
-    public static Client authentifierClient(String mail, String motDePasse) {
+    public static long authentifierClient(String mail, String motDePasse) {
 
         JpaUtil.creerContextePersistance();
         Client client = ClientDao.findByEmail(mail);
         if (client != null && client.getMotDePasse().equals(motDePasse)) {
-            return client;
+            return client.getId();
         } else {
-            return null;
+            return -1;
         }
     }
 

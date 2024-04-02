@@ -5,6 +5,7 @@
  */
 package metier.modele;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author jsun
  */
 @Entity
-public class Client {
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,7 +65,6 @@ public class Client {
         try {
             this.birthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
         } catch (ParseException e) {
-            e.printStackTrace();
             throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd");
         }
     }
