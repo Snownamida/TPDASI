@@ -4,11 +4,15 @@
  */
 package metier.modele;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -20,7 +24,8 @@ public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String date;
+    @Temporal(TemporalType.DATE)
+    private Date date;
     private int duree;
     private String commentaire;
     @ManyToOne
@@ -33,7 +38,7 @@ public class Consultation {
     protected Consultation() {
     }
 
-    public Consultation(String date, int duree, Medium medium, Client client, Employee employee) {
+    public Consultation(Date date, int duree, Medium medium, Client client, Employee employee) {
         this.date = date;
         this.duree = duree;
         this.medium = medium;
@@ -65,11 +70,11 @@ public class Consultation {
         this.employee = employee;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

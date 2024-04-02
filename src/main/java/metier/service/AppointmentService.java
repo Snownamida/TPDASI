@@ -7,6 +7,8 @@ import util.Message;
 public class AppointmentService {
     public static void CreateAppointment(Client client, Employee employee, String date) {
         try {
+            if (!ConsultationService.creerConsultation(date, 0, date, null, client, employee))
+                throw new Exception("Erreur lors de la création du rendez-vous");
 
             Message.envoyerNotification(client.getNom(),
                     "Bonjour " + client.getPrenom() + ",\n" + "Votre rendez-vous avec " + employee.getPrenom() + " "
