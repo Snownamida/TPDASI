@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package metier.service;
 
 import java.util.List;
@@ -82,6 +81,6 @@ public class EmployeeService {
     }
 
     public static String GetHelp(int love, int health, int job) {
-
+        return null;
     }
 }
