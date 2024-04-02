@@ -83,4 +83,7 @@ public class EmployeeService {
     public static String GetHelp(int love, int health, int job) {
         return null;
     }
+
+    public static void FinConsultation() {
+    }
 }

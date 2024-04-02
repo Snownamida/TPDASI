@@ -8,6 +8,7 @@ package vue;
 import java.util.List;
 
 import dao.ClientDao;
+import dao.ConsultationDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
 import metier.modele.Client;
@@ -60,6 +61,8 @@ public class Main {
         System.out.println(ANSI_GREEN + "Trying to take an appointment... " + ANSI_RESET);
         Consultation consultation = AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30",
                 null, 20);
+        consultation.setCommentaire("this client was very depressed and i helped him");
+        ConsultationDao.update(consultation);
         System.out.println(consultation);
         System.out.println(ANSI_GREEN + "authetification... " + ANSI_RESET);
 
@@ -75,10 +78,10 @@ public class Main {
             System.out.println("authetification...KO ");
         }
 
-
         List<Consultation> consultationList = clients.get(0).getConsultations();
         System.out.println("--------------------------------------------------");
-        System.out.println("previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom());
+        System.out.println(
+                "previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom());
 
         for (Consultation c : consultationList) {
             // Print employee and comment
@@ -92,8 +95,6 @@ public class Main {
         JpaUtil.fermerFabriquePersistance();
         System.out.println("astral profile of this client : \n" + clients.get(0).getAstralProfile());
         System.out.println("--------------------------------------------------");
-
-
 
     }
 }
