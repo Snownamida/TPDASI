@@ -5,6 +5,8 @@
  */
 package metier.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,11 +28,25 @@ import util.Message;
  */
 public class ClientService {
 
-    public static Boolean inscrireClient(Client client) {
+    public static Boolean inscrireClient(String nom, String prenom, String mail, String motDePasse,
+            String adressePostale, String phone,
+            String birthdateString) {
+
+        Date birthdate;
         try {
-            LatLng clientCoord = GeoNetApi.getLatLng(client.getAdressePostale());
+            birthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Message.envoyerMail("noreply@votreentreprise.com", mail, "Erreur lors de l'inscription",
+                    "Invalid date format. Please use yyyy-MM-dd");
+            return false;
+        }
+
+        try {
+            Client client = new Client(nom, prenom, mail, motDePasse, adressePostale, phone, birthdate);
+            LatLng clientCoord = GeoNetApi.getLatLng(adressePostale);
             if (clientCoord == null) {
-                sendErrorEmail(client, "Adresse postale invalide");
+                sendErrorEmail(mail, "Adresse postale invalide");
                 return false;
             }
 
@@ -39,10 +55,7 @@ public class ClientService {
 
             AstroNetApi astroApi = new AstroNetApi();
 
-            String prenom = client.getPrenom();
-            Date dateNaissance = client.getBirthdate();
-
-            List<String> profil = astroApi.getProfil(prenom, dateNaissance);
+            List<String> profil = astroApi.getProfil(prenom, birthdate);
             String signeZodiaque = profil.get(0);
             String signeChinois = profil.get(1);
             String couleur = profil.get(2);
@@ -64,13 +77,13 @@ public class ClientService {
         } catch (RollbackException re) {
             re.printStackTrace();
             JpaUtil.annulerTransaction();
-            sendErrorEmail(client, "Erreur lors de l'enregistrement dans la base de données (RollbackException)");
+            sendErrorEmail(mail, "Erreur lors de l'enregistrement dans la base de données (RollbackException)");
             return false;
 
         } catch (Exception e) {
             e.printStackTrace();
             JpaUtil.annulerTransaction();
-            sendErrorEmail(client, "Erreur lors de l'enregistrement dans la base de données (Other Exception)");
+            sendErrorEmail(mail, "Erreur lors de l'enregistrement dans la base de données (Other Exception)");
             return false;
         }
     }
@@ -114,10 +127,11 @@ public class ClientService {
         Message.envoyerMail("noreply@votreentreprise.com", client.getMail(), subject, body);
     }
 
-    private static void sendErrorEmail(Client client, String error) {
+    private static void sendErrorEmail(String destinataire, String error) {
         String subject = "Erreur lors de l'inscription";
         String body = "Désolé, une erreur est survenue lors de votre inscription.\nErreur : " + error;
 
-        Message.envoyerMail("noreply@votreentreprise.com", client.getMail(), subject, body);
+        Message.envoyerMail("noreply@votreentreprise.com", destinataire, subject, body);
     }
+
 }

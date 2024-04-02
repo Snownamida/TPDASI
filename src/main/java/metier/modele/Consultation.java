@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,14 +23,46 @@ public class Consultation {
     private String date;
     private int duree;
     private String commentaire;
+    @ManyToOne
+    private Medium medium;
+    @ManyToOne
+    private Client client;
+    @ManyToOne
+    private Employee employee;
 
     protected Consultation() {
     }
 
-    public Consultation(String date, int duree, String commentaire) {
+    public Consultation(String date, int duree, Medium medium, Client client, Employee employee) {
         this.date = date;
         this.duree = duree;
-        this.commentaire = commentaire;
+        this.medium = medium;
+        this.client = client;
+        this.employee = employee;
+    }
+
+    public Medium getMedium() {
+        return medium;
+    }
+
+    public void setMedium(Medium medium) {
+        this.medium = medium;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public String getDate() {

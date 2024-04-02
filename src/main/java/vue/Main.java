@@ -27,14 +27,9 @@ public class Main {
 
         JpaUtil.creerFabriquePersistance();
         EmployeeService.InitEmployee();
-            Client client1 = new Client("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
-                    "2003-08-27");
-            ClientService.inscrireClient(client1);
-            // ClientService.inscrireClient(client2);
-
-            System.out.println("内存中的客户们 : ");
-            System.out.println(client1);
-            // System.out.println(client2);
+        ClientService.inscrireClient("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
+                "2003-08-27");
+        // ClientService.inscrireClient(client2);
 
         System.out.println("数据库中的客户们 : ");
         System.out.println(ClientService.consulterListeClients());

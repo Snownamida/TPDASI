@@ -59,9 +59,9 @@ public class EmployeeService {
     public static Employee authentifierEmploye(String mail, String motDePasse) {
 
         JpaUtil.creerContextePersistance();
-        Employee Employee = EmployeeDao.findByEmail(mail);
-        if (Employee != null && Employee.getMotDePasse().equals(motDePasse)) {
-            return Employee;
+        Employee employee = EmployeeDao.findByEmail(mail);
+        if (employee != null && employee.getMotDePasse().equals(motDePasse)) {
+            return employee;
         } else {
             return null;
         }
@@ -73,7 +73,6 @@ public class EmployeeService {
     }
 
     // Ce service renvoie toutes les entités Client triées par ordre alphabétique
-    // (nom/prénom).
     public static List<Employee> consulterListeEmployes() {
         JpaUtil.creerContextePersistance();
         return EmployeeDao.getAll();

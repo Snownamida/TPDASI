@@ -5,9 +5,8 @@
  */
 package metier.modele;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -15,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -42,6 +42,9 @@ public class Client {
     @Embedded
     private AstralProfile astralProfile;
 
+    @OneToMany
+    private List<Consultation> consultations;
+
     @Override
     public String toString() {
         return "Client [adressePostale=" + adressePostale + ", astralProfile=" + astralProfile + ", birthdate="
@@ -53,20 +56,23 @@ public class Client {
     }
 
     public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone,
-            String birthdate) {
+            Date birthdate) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
         this.adressePostale = adressePostale;
         this.phone = phone;
+        this.birthdate = birthdate;
+       
+    }
 
-        try {
-            this.birthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd");
-        }
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
 
     public void setId(Long id) {
