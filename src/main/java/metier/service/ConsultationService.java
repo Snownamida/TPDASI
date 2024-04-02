@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.persistence.RollbackException;
 
+import dao.ClientDao;
+import dao.ConsultationDao;
 import dao.JpaUtil;
 import metier.modele.Client;
 import metier.modele.Consultation;
@@ -30,7 +32,9 @@ public class ConsultationService {
             Consultation consultation = new Consultation(date, duree, medium, client, employee);
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
-            dao.ConsultationDao.create(consultation);
+            ConsultationDao.create(consultation);
+            client.getConsultations().add(consultation);
+            ClientDao.update(client);
             JpaUtil.validerTransaction();
             return consultation;
         } catch (RollbackException re) {
