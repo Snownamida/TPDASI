@@ -76,18 +76,16 @@ public class Main {
         }
 
 
-
-
-        List<Consultation> consultationList = client1.getConsultations();
+        List<Consultation> consultationList = clients.get(0).getConsultations();
         System.out.println("--------------------------------------------------");
         System.out.println("previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom());
 
-        for (Consultation consultation : consultationList) {
+        for (Consultation c : consultationList) {
             // Print employee and comment
             System.out.println("Employee : ");
-            System.out.println(consultation.getEmployee());
+            System.out.println(c.getEmployee());
             System.out.println("Comment : ");
-            System.out.printf(consultation.getCommentaire());
+            System.out.printf(c.getCommentaire());
             System.out.println("\n");
         }
         System.out.println("--------------------------------------------------");
@@ -98,7 +96,4 @@ public class Main {
 
 
     }
-
-    
-
 }
