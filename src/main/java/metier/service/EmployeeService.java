@@ -81,8 +81,7 @@ public class EmployeeService {
         return EmployeeDao.getAll();
     }
 
-    public static void AfficherInfos(Client client) {
-        JpaUtil.creerContextePersistance();
-        List<Consultation> consultationList = client.getConsultations();
+    public static String GetHelp(int love, int health, int job) {
+
     }
 }

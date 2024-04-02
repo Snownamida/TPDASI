@@ -5,9 +5,16 @@
  */
 package vue;
 
+import java.util.List;
+
 import dao.ClientDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
+import metier.modele.Client;
+import metier.modele.Consultation;
+import metier.modele.Employee;
+import metier.modele.Medium;
+import metier.modele.Spirite;
 import metier.service.AuthenticationService;
 import metier.service.ClientService;
 import metier.service.EmployeeService;
@@ -49,7 +56,30 @@ public class Main {
             System.out.println("authetification...KO ");
         }
 
+
+
+
+        List<Consultation> consultationList = client1.getConsultations();
+        System.out.println("--------------------------------------------------");
+        System.out.println("previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom());
+
+        for (Consultation consultation : consultationList) {
+            // Print employee and comment
+            System.out.println("Employee : ");
+            System.out.println(consultation.getEmployee());
+            System.out.println("Comment : ");
+            System.out.printf(consultation.getCommentaire());
+            System.out.println("\n");
+        }
+        System.out.println("--------------------------------------------------");
         JpaUtil.fermerFabriquePersistance();
+        System.out.println("astral profile of this client : \n" + clients.get(0).getAstralProfile());
+        System.out.println("--------------------------------------------------");
+
+        
+
     }
+
+    
 
 }
