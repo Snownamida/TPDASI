@@ -5,6 +5,8 @@
  */
 package metier.modele;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -51,14 +53,20 @@ public class Client {
     }
 
     public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone,
-            Date birthdate) {
+            String birthdate) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
         this.adressePostale = adressePostale;
         this.phone = phone;
-        this.birthdate = birthdate;
+
+        try {
+            this.birthdate = new SimpleDateFormat("yyyy-MM-dd").parse(birthdate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd");
+        }
     }
 
     public void setId(Long id) {
