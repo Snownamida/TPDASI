@@ -5,6 +5,7 @@
  */
 package metier.modele;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import javax.persistence.TemporalType;
  * @author jsun
  */
 @Entity
-public class Client {
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import metier.modele.Client;
+import metier.modele.Consultation;
 
 import java.util.List;
 
@@ -33,7 +34,6 @@ public class ClientDao {
             // 没有找到与该电子邮件相对应的客户
             return null;
         }
-
     }
 
     public static Client findById(Long id) {

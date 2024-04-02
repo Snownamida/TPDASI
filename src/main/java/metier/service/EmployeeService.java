@@ -10,8 +10,11 @@ import java.util.List;
 
 import javax.persistence.RollbackException;
 
+import dao.ConsultationDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
+import metier.modele.Client;
+import metier.modele.Consultation;
 import metier.modele.Employee;
 
 /**
@@ -56,14 +59,14 @@ public class EmployeeService {
     // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
     // renvoie l'entité Client si l'authentification a réussie, ou null en cas
     // d'échec.
-    public static Employee authentifierEmploye(String mail, String motDePasse) {
+    public static long authentifierEmploye(String mail, String motDePasse) {
 
         JpaUtil.creerContextePersistance();
         Employee employee = EmployeeDao.findByEmail(mail);
         if (employee != null && employee.getMotDePasse().equals(motDePasse)) {
-            return employee;
+            return employee.getId();
         } else {
-            return null;
+            return -1;
         }
     }
 
@@ -76,5 +79,10 @@ public class EmployeeService {
     public static List<Employee> consulterListeEmployes() {
         JpaUtil.creerContextePersistance();
         return EmployeeDao.getAll();
+    }
+
+    public static void AfficherInfos(Client client) {
+        JpaUtil.creerContextePersistance();
+        List<Consultation> consultationList = client.getConsultations();
     }
 }
