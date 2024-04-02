@@ -5,9 +5,14 @@
  */
 package vue;
 
+import java.util.List;
+
 import dao.ClientDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
+import metier.modele.Client;
+import metier.modele.Employee;
+import metier.service.AppointmentService;
 import metier.service.AuthenticationService;
 import metier.service.ClientService;
 import metier.service.EmployeeService;
@@ -21,6 +26,18 @@ public class Main {
     /**
      * @param args the command line arguments
      */
+
+    // ANSI 转义码
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+
     public static void main(String[] args) {
 
         JpaUtil.creerFabriquePersistance();
@@ -30,10 +47,15 @@ public class Main {
         // ClientService.inscrireClient(client2);
 
         System.out.println("client dans BD : ");
-        System.out.println(ClientService.consulterListeClients());
+        List<Client> clients = ClientService.consulterListeClients();
+        System.out.println(clients);
 
         System.out.println("employes dans BD : ");
-        System.out.println(EmployeeService.consulterListeEmployes());
+        List<Employee> employes = EmployeeService.consulterListeEmployes();
+        System.out.println(employes);
+
+        System.out.println(ANSI_GREEN + "Trying to take an appointment... " + ANSI_RESET);
+        AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30");
 
         System.out.println("authetification... ");
 
