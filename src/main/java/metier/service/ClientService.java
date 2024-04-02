@@ -12,7 +12,6 @@ import javax.persistence.RollbackException;
 
 import com.google.maps.model.LatLng;
 
-import dao.AstralProfileDao;
 import dao.ClientDao;
 import dao.JpaUtil;
 import metier.modele.AstralProfile;
@@ -56,7 +55,6 @@ public class ClientService {
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             ClientDao.create(client);
-            AstralProfileDao.create(astralProfile);
             JpaUtil.validerTransaction();
 
             // Send confirmation email

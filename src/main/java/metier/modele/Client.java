@@ -42,9 +42,9 @@ public class Client {
 
     @Override
     public String toString() {
-        return String.format(
-                "Client:\nid=%s;nom=%s;prenom=%s;mail=%s;motDePasse=%s;adressePostale=%s;latitude=%s;longitude=%s;phone=%s",
-                id, nom, prenom, mail, motDePasse, adressePostale, latitude, longitude, phone);
+        return "Client [adressePostale=" + adressePostale + ", astralProfile=" + astralProfile + ", birthdate="
+                + birthdate + ", id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", mail=" + mail
+                + ", motDePasse=" + motDePasse + ", nom=" + nom + ", phone=" + phone + ", prenom=" + prenom + "]";
     }
 
     protected Client() {

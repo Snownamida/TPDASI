@@ -19,6 +19,12 @@ public class AstralProfile {
     private String signeAstroChinois;
     private String signeDuZodiaque;
 
+    @Override
+    public String toString() {
+        return "AstralProfile [animalTotem=" + animalTotem + ", couleurPorteBonheur=" + couleurPorteBonheur
+                + ", signeAstroChinois=" + signeAstroChinois + ", signeDuZodiaque=" + signeDuZodiaque + "]";
+    }
+
     protected AstralProfile() {
     }
 
