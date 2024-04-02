@@ -11,6 +11,7 @@ import dao.ClientDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
 import metier.modele.Client;
+import metier.modele.Consultation;
 import metier.modele.Employee;
 import metier.service.AppointmentService;
 import metier.service.AuthenticationService;
@@ -46,18 +47,19 @@ public class Main {
                 "2003-08-27");
         // ClientService.inscrireClient(client2);
 
-        System.out.println("client dans BD : ");
+        System.out.println(ANSI_GREEN + "client dans BD : " + ANSI_RESET);
         List<Client> clients = ClientService.consulterListeClients();
         System.out.println(clients);
 
-        System.out.println("employes dans BD : ");
+        System.out.println(ANSI_GREEN + "employes dans BD : " + ANSI_RESET);
         List<Employee> employes = EmployeeService.consulterListeEmployes();
         System.out.println(employes);
 
         System.out.println(ANSI_GREEN + "Trying to take an appointment... " + ANSI_RESET);
-        AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30");
-
-        System.out.println("authetification... ");
+        Consultation consultation = AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30",
+                null, 20);
+        System.out.println(consultation);
+        System.out.println(ANSI_GREEN + "authetification... " + ANSI_RESET);
 
         Object[] result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password1");
         if (result != null) {

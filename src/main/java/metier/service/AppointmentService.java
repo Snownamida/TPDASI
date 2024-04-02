@@ -1,13 +1,18 @@
 package metier.service;
 
 import metier.modele.Client;
+import metier.modele.Consultation;
 import metier.modele.Employee;
+import metier.modele.Medium;
 import util.Message;
 
 public class AppointmentService {
-    public static void CreateAppointment(Client client, Employee employee, String date) {
+    public static Consultation CreateAppointment(Client client, Employee employee, String date, Medium medium,
+            int duree) {
         try {
-            if (!ConsultationService.creerConsultation(date, 0, date, null, client, employee))
+            Consultation consultation = ConsultationService.creerConsultation(date,
+                    duree, date, medium, client, employee);
+            if (consultation == null)
                 throw new Exception("Erreur lors de la création du rendez-vous");
 
             Message.envoyerNotification(client.getNom(),
@@ -16,6 +21,7 @@ public class AppointmentService {
                             + "Vous pouvez me contacter au "
                             + employee.getPhone() + " pour toute question.\n" + "Cordialement,\n" + employee.getPrenom()
                             + " " + employee.getNom());
+            return consultation;
         } catch (Exception e) {
             Message.envoyerMail("noreply@votreentreprise.com", client.getMail(),
                     "Erreur lors de la création du rendez-vous",
@@ -24,6 +30,7 @@ public class AppointmentService {
                             + employee.getPrenom() + " " + employee.getNom() + " pour le " + date + ".\n"
                             + "Veuillez nous excuser pour la gêne occasionnée.\n" + "Cordialement");
             e.printStackTrace();
+            return null;
         }
 
     }

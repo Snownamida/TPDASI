@@ -46,6 +46,12 @@ public class Consultation {
         this.employee = employee;
     }
 
+    @Override
+    public String toString() {
+        return "Consultation [client=" + client + ", commentaire=" + commentaire + ", date=" + date + ", duree=" + duree
+                + ", employee=" + employee + ", medium=" + medium + "]";
+    }
+
     public Medium getMedium() {
         return medium;
     }

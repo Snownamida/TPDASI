@@ -14,7 +14,7 @@ import metier.modele.Medium;
 
 public class ConsultationService {
 
-    public static Boolean creerConsultation(String dateString, int duree, String commentaire, Medium medium,
+    public static Consultation creerConsultation(String dateString, int duree, String commentaire, Medium medium,
             Client client,
             Employee employee) {
 
@@ -23,7 +23,7 @@ public class ConsultationService {
             date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
 
         try {
@@ -32,16 +32,16 @@ public class ConsultationService {
             JpaUtil.ouvrirTransaction();
             dao.ConsultationDao.create(consultation);
             JpaUtil.validerTransaction();
-            return true;
+            return consultation;
         } catch (RollbackException re) {
             re.printStackTrace();
             JpaUtil.annulerTransaction();
-            return false;
+            return null;
 
         } catch (Exception e) {
             e.printStackTrace();
             JpaUtil.annulerTransaction();
-            return false;
+            return null;
         }
     }
 
