@@ -17,8 +17,7 @@ import metier.modele.Medium;
 public class ConsultationService {
 
     public static Consultation creerConsultation(String dateString, int duree, String commentaire, Medium medium,
-            Client client,
-            Employee employee) {
+            Client client, Employee employee) {
 
         Date date;
         try {

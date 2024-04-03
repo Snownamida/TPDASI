@@ -4,6 +4,11 @@
  */
 package dao;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import metier.modele.Consultation;
 
 /**
@@ -18,5 +23,11 @@ public class ConsultationDao {
 
     public static void update(Consultation consultation) {
         JpaUtil.obtenirContextePersistance().merge(consultation);
+    }
+
+    public static List<Consultation> getAll() {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c", Consultation.class);
+        return query.getResultList();
     }
 }

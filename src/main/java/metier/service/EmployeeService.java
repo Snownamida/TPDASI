@@ -12,9 +12,15 @@ import javax.persistence.RollbackException;
 import dao.ConsultationDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
+import dao.MediumDao;
 import metier.modele.Client;
 import metier.modele.Consultation;
 import metier.modele.Employee;
+import metier.modele.Medium;
+import metier.modele.Spirite;
+import metier.modele.Astrologer;
+import metier.modele.Cartomancien;
+import util.AstroNetApi;
 
 /**
  *
@@ -37,6 +43,37 @@ public class EmployeeService {
             EmployeeDao.create(emp1);
             EmployeeDao.create(emp2);
             EmployeeDao.create(emp3);
+
+            JpaUtil.validerTransaction();
+
+            return true;
+
+        } catch (RollbackException re) {
+            re.printStackTrace();
+            JpaUtil.annulerTransaction();
+            return false;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JpaUtil.annulerTransaction();
+            return false;
+        }
+    }
+
+    public static Boolean InitMedium() {
+
+        Medium med1 = new Astrologer("ENS-Astro", "2006", "Serena", 
+        "Basée à Champigny-sur-Marne, Serena vous révèlera votre avenir pour éclairer votre passé.", "F", "../images/mediums/serena.jpg");
+        Medium med2 = new Cartomancien("Mme Irma", "Votre avenir est devant vous: regardons-le ensemble!", "F",
+                "../images/mediums/irma.jpg");
+        Medium med3 = new Spirite("Marc de café", "Gwen","Spécialiste des grandes conversations au-delà de TOUTES les frontières", "F", "../images/mediums/gwen.jpg");
+
+        try {
+            JpaUtil.creerContextePersistance();
+            JpaUtil.ouvrirTransaction();
+            MediumDao.create(med1);
+            MediumDao.create(med2);
+            MediumDao.create(med3);
 
             JpaUtil.validerTransaction();
 
@@ -80,10 +117,22 @@ public class EmployeeService {
         return EmployeeDao.getAll();
     }
 
-    public static String GetHelp(int love, int health, int job) {
-        return null;
+    public static List<String> GetHelp(Client client, int love, int health, int job) {
+
+        AstroNetApi astroApi = new AstroNetApi();
+        try {
+            List<String> predictions = astroApi.getPredictions(client.getAstralProfile().getCouleurPorteBonheur(),
+                    client.getAstralProfile().getAnimalTotem(), love, health, job);
+            return predictions;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public static void FinConsultation() {
+    public static void FinConsultation(Consultation consultation, String comment, int duration) {
+        consultation.setCommentaire(comment);
+        consultation.setDuree(duration);
+        ConsultationDao.update(consultation);
     }
 }

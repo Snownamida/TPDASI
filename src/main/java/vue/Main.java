@@ -11,6 +11,7 @@ import dao.ClientDao;
 import dao.ConsultationDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
+import dao.MediumDao;
 import metier.modele.Client;
 import metier.modele.Consultation;
 import metier.modele.Employee;
@@ -43,7 +44,7 @@ public class Main {
     public static final String ANSI_WHITE = "\u001B[37m";
 
     public static void main(String[] args) {
-
+        JpaUtil.desactiverLog();
         JpaUtil.creerFabriquePersistance();
         EmployeeService.InitEmployee();
         ClientService.inscrireClient("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
@@ -64,7 +65,7 @@ public class Main {
         consultation.setCommentaire("this client was very depressed and i helped him");
         ConsultationDao.update(consultation);
         System.out.println(consultation);
-        System.out.println(ANSI_GREEN + "authetification... " + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "authetication... " + ANSI_RESET);
 
         Object[] result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password1");
         if (result != null) {
@@ -92,9 +93,39 @@ public class Main {
             System.out.println("\n");
         }
         System.out.println("--------------------------------------------------");
-        JpaUtil.fermerFabriquePersistance();
         System.out.println("astral profile of this client : \n" + clients.get(0).getAstralProfile());
         System.out.println("--------------------------------------------------");
 
+        // Get help
+        System.out.println("Get help !!!");
+        int love = 1;
+        int health = 1;
+        int job = 1;
+        List<String> predictions = EmployeeService.GetHelp(clients.get(0), love, health, job);
+        String lovePrediction = predictions.get(0);
+        String healthPrediction = predictions.get(1);
+        String jobPrediction = predictions.get(2);
+
+        System.out.println("~<[ Prédictions ]>~");
+        System.out.println("[ Amour ] " + lovePrediction);
+        System.out.println("[ Santé ] " + healthPrediction);
+        System.out.println("[Travail] " + jobPrediction);
+        System.out.println("--------------------------------------------------");
+        System.out.println("Fin de la consultation...");
+        String comment = "very intresting consultation";
+        int duration = 30;
+        EmployeeService.FinConsultation(consultation, comment, duration);
+        ConsultationDao.getAll();
+        for (Consultation c : ConsultationDao.getAll()) {
+            System.out.println(c);
+        }
+        System.out.println("--------------------------------------------------");
+        System.out.println("Voici les Medium qui existent dans la base de données : ");
+        EmployeeService.InitMedium();
+        List<Medium> mediums = MediumDao.getAll();
+        for (Medium m : mediums) {
+            System.out.println(m);
+        }
+        JpaUtil.fermerFabriquePersistance();
     }
 }
