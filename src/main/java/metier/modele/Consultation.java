@@ -48,8 +48,13 @@ public class Consultation {
 
     @Override
     public String toString() {
-        return "Consultation [client=" + client + ", commentaire=" + commentaire + ", date=" + date + ", duree=" + duree
-                + ", employee=" + employee + ", medium=" + medium + "]";
+        return "Consultation ["
+                + "\nclient=" + client
+                + "\nemployee=" + employee
+                + "\nmedium=" + medium
+                + "\ncommentaire=" + commentaire
+                + ", date=" + date
+                + ", duree=" + duree + "]";
     }
 
     public Medium getMedium() {

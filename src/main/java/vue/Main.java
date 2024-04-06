@@ -16,7 +16,6 @@ import metier.modele.Client;
 import metier.modele.Consultation;
 import metier.modele.Employee;
 import metier.modele.Medium;
-import metier.modele.Spirite;
 import metier.service.AppointmentService;
 import metier.service.AuthenticationService;
 import metier.service.ClientService;
@@ -27,10 +26,6 @@ import metier.service.EmployeeService;
  * @author jsun
  */
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
 
     // ANSI 转义码
     public static final String ANSI_RESET = "\u001B[0m";
@@ -43,44 +38,44 @@ public class Main {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    public static final String SEPARATOR = ANSI_RED + "--------------------------------------------------" + ANSI_RESET;
+
     public static void main(String[] args) {
         JpaUtil.desactiverLog();
         JpaUtil.creerFabriquePersistance();
+
         EmployeeService.InitEmployee();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Inscription client" + ANSI_RESET);
         ClientService.inscrireClient("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
                 "2003-08-27");
-        // ClientService.inscrireClient(client2);
+        System.err.println();
 
-        System.out.println(ANSI_GREEN + "client dans BD : " + ANSI_RESET);
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Client dans BD : " + ANSI_RESET);
         List<Client> clients = ClientService.consulterListeClients();
         System.out.println(clients);
+        System.out.println();
 
-        System.out.println(ANSI_GREEN + "employes dans BD : " + ANSI_RESET);
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Employes dans BD : " + ANSI_RESET);
         List<Employee> employes = EmployeeService.consulterListeEmployes();
         System.out.println(employes);
 
-        System.out.println(ANSI_GREEN + "Trying to take an appointment... " + ANSI_RESET);
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Trying to take an appointment... " + ANSI_RESET);
         Consultation consultation = AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30",
                 null, 20);
         consultation.setCommentaire("this client was very depressed and i helped him");
         ConsultationDao.update(consultation);
         System.out.println(consultation);
-        System.out.println(ANSI_GREEN + "authetication... " + ANSI_RESET);
+        System.out.println();
 
-        Object[] result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password1");
-        if (result != null) {
-            System.out.println("authetification...OK ");
-            if (result[1].equals("employee")) {
-                System.out.println("Employee : " + EmployeeDao.findById((Long) result[0]));
-            } else {
-                System.out.println("Client : " + ClientDao.findById((Long) result[0]));
-            }
-        } else {
-            System.out.println("authetification...KO ");
-        }
+        TestAuthentification();
 
+        System.out.println(SEPARATOR);
         List<Consultation> consultationList = clients.get(0).getConsultations();
-        System.out.println("--------------------------------------------------");
         System.out.println(
                 "previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom());
 
@@ -128,4 +123,69 @@ public class Main {
         }
         JpaUtil.fermerFabriquePersistance();
     }
+
+    private static void TestAuthentification() {
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Authetication of an employee with correct infos" + ANSI_RESET);
+        Object[] result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password1");
+        if (result != null) {
+            System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
+            if (result[1].equals("employee")) {
+                System.out.println("Employee : " + EmployeeDao.findById((Long) result[0]));
+            } else {
+                System.out.println("Client : " + ClientDao.findById((Long) result[0]));
+            }
+        } else {
+            System.out.println("authetification...KO ");
+        }
+        System.out.println();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Authetication of an employee with incorrect infos" + ANSI_RESET);
+        result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password2");
+        if (result != null) {
+            System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
+            if (result[1].equals("employee")) {
+                System.out.println("Employee : " + EmployeeDao.findById((Long) result[0]));
+            } else {
+                System.out.println("Client : " + ClientDao.findById((Long) result[0]));
+            }
+        } else {
+            System.out.println("authetification...KO ");
+        }
+        System.out.println();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Authetication of an client with correct infos" + ANSI_RESET);
+        result = AuthenticationService.Authenticate("sqgsg@qdf.sf", "123456");
+        if (result != null) {
+            System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
+            if (result[1].equals("employee")) {
+                System.out.println("Employee : " + EmployeeDao.findById((Long) result[0]));
+            } else {
+                System.out.println("Client : " + ClientDao.findById((Long) result[0]));
+            }
+        } else {
+            System.out.println("authetification...KO ");
+        }
+        System.out.println();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Authetication of an client with incorrect infos" + ANSI_RESET);
+        result = AuthenticationService.Authenticate("sqgsg@qdf.sf", "1234567");
+
+        if (result != null) {
+            System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
+            if (result[1].equals("employee")) {
+                System.out.println("Employee : " + EmployeeDao.findById((Long) result[0]));
+            } else {
+                System.out.println("Client : " + ClientDao.findById((Long) result[0]));
+            }
+        } else {
+            System.out.println("authetification...KO ");
+        }
+        System.out.println();
+
+    }
+
 }

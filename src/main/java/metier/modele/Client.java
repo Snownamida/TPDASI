@@ -48,9 +48,13 @@ public class Client implements Serializable {
 
     @Override
     public String toString() {
-        return "Client [adressePostale=" + adressePostale + ", astralProfile=" + astralProfile + ", birthdate="
-                + birthdate + ", id=" + id + ", latitude=" + latitude + ", longitude=" + longitude + ", mail=" + mail
-                + ", motDePasse=" + motDePasse + ", nom=" + nom + ", phone=" + phone + ", prenom=" + prenom + "]";
+        return "Client [" + "nom=" + nom + ", prenom=" + prenom
+                + ", adressePostale=" + adressePostale
+                + ", birthdate=" + birthdate
+                + ", id=" + id
+                + ", latitude=" + latitude + ", longitude=" + longitude
+                + ", mail=" + mail + ", motDePasse=" + motDePasse
+                + ", phone=" + phone + ", astralProfile=" + astralProfile + "]";
     }
 
     protected Client() {
@@ -65,7 +69,7 @@ public class Client implements Serializable {
         this.adressePostale = adressePostale;
         this.phone = phone;
         this.birthdate = birthdate;
-       
+
     }
 
     public List<Consultation> getConsultations() {

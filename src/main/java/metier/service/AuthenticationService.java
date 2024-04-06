@@ -18,9 +18,21 @@ public class AuthenticationService {
             String domain = parts[1];
             // Check if domain name is "predictif"
             if (domain.equals("predictif.fr")) {
-                return new Object[]{EmployeeService.authentifierEmploye(email, password), "employee"};
+                Long id = EmployeeService.authentifierEmploye(email, password);
+                if (id != -1) {
+                    return new Object[] { id, "employee" };
+                } else {
+                    System.out.println("Invalid email or password");
+                    return null;
+                }
             } else {
-                return new Object[]{ClientService.authentifierClient(email, password), "client"};
+                Long id = ClientService.authentifierClient(email, password);
+                if (id != -1) {
+                    return new Object[] { id, "client" };
+                } else {
+                    System.out.println("Invalid email or password");
+                    return null;
+                }
             }
         } else {
             System.out.println("Invalid email format");
