@@ -45,6 +45,7 @@ public class Main {
         JpaUtil.creerFabriquePersistance();
 
         EmployeeService.InitEmployee();
+        EmployeeService.InitMedium();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Inscription client" + ANSI_RESET);
@@ -62,6 +63,17 @@ public class Main {
         System.out.println(ANSI_RED + "Employes dans BD : " + ANSI_RESET);
         List<Employee> employes = EmployeeService.consulterListeEmployes();
         System.out.println(employes);
+        System.out.println();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Voici les Medium qui existent dans la base de données : " + ANSI_RESET);
+        List<Medium> mediums = MediumDao.getAll();
+        for (Medium m : mediums) {
+            System.out.println(m);
+        }
+        System.out.println();
+
+        TestAuthentification();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Trying to take an appointment... " + ANSI_RESET);
@@ -72,27 +84,29 @@ public class Main {
         System.out.println(consultation);
         System.out.println();
 
-        TestAuthentification();
-
         System.out.println(SEPARATOR);
         List<Consultation> consultationList = clients.get(0).getConsultations();
-        System.out.println(
-                "previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom());
+        System.out.println(ANSI_RED +
+                "previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom()
+                + ANSI_RESET);
 
         for (Consultation c : consultationList) {
             // Print employee and comment
-            System.out.println("Employee : ");
+            System.out.println(ANSI_RED + "Employee : " + ANSI_RESET);
             System.out.println(c.getEmployee());
-            System.out.println("Comment : ");
+            System.out.println(ANSI_RED + "Comment : " + ANSI_RESET);
             System.out.printf(c.getCommentaire());
             System.out.println("\n");
         }
-        System.out.println("--------------------------------------------------");
-        System.out.println("astral profile of this client : \n" + clients.get(0).getAstralProfile());
-        System.out.println("--------------------------------------------------");
+        System.out.println();
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "astral profile of this client : \n" + clients.get(0).getAstralProfile()
+                + ANSI_RESET);
+        System.out.println();
 
         // Get help
-        System.out.println("Get help !!!");
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Get help !!!" + ANSI_RESET);
         int love = 1;
         int health = 1;
         int job = 1;
@@ -100,13 +114,14 @@ public class Main {
         String lovePrediction = predictions.get(0);
         String healthPrediction = predictions.get(1);
         String jobPrediction = predictions.get(2);
-
         System.out.println("~<[ Prédictions ]>~");
         System.out.println("[ Amour ] " + lovePrediction);
         System.out.println("[ Santé ] " + healthPrediction);
         System.out.println("[Travail] " + jobPrediction);
-        System.out.println("--------------------------------------------------");
-        System.out.println("Fin de la consultation...");
+        System.out.println();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Fin de la consultation..." + ANSI_RESET);
         String comment = "very intresting consultation";
         int duration = 30;
         EmployeeService.FinConsultation(consultation, comment, duration);
@@ -114,13 +129,8 @@ public class Main {
         for (Consultation c : ConsultationDao.getAll()) {
             System.out.println(c);
         }
-        System.out.println("--------------------------------------------------");
-        System.out.println("Voici les Medium qui existent dans la base de données : ");
-        EmployeeService.InitMedium();
-        List<Medium> mediums = MediumDao.getAll();
-        for (Medium m : mediums) {
-            System.out.println(m);
-        }
+        System.out.println();
+
         JpaUtil.fermerFabriquePersistance();
     }
 

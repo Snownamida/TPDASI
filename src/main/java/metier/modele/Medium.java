@@ -16,7 +16,7 @@ import javax.persistence.InheritanceType;
  * @author snownamida
  */
 @Entity
-@Inheritance (strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Medium {
 
     @Id
@@ -35,6 +35,16 @@ public class Medium {
         this.presentation = presentation;
         this.genre = genre;
         this.profilePhotoPath = profilePhotoPath;
+    }
+
+    @Override
+    public String toString() {
+        return "Medium ["
+                + "denomination=" + denomination
+                + ", genre=" + genre
+                + ", id=" + id
+                + ", presentation=" + presentation
+                + ", profilePhotoPath=" + profilePhotoPath + "]";
     }
 
     public String getDenomination() {
