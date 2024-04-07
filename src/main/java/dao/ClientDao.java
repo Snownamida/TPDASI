@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import metier.modele.Client;
-import metier.modele.Consultation;
 
 import java.util.List;
 

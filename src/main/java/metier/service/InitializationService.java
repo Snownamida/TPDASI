@@ -1,33 +1,25 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package metier.service;
 
-import java.util.List;
-
 import javax.persistence.RollbackException;
 
-import dao.ConsultationDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
 import dao.MediumDao;
-import metier.modele.Client;
-import metier.modele.Consultation;
+import metier.modele.Astrologer;
+import metier.modele.Cartomancien;
 import metier.modele.Employee;
 import metier.modele.Medium;
 import metier.modele.Spirite;
-import metier.modele.Astrologer;
-import metier.modele.Cartomancien;
-import util.AstroNetApi;
 
 /**
  *
  * @author staider
  */
-public class EmployeeService {
-
+public class InitializationService {
     public static Boolean InitEmployee() {
 
         Employee emp1 = new Employee("Smith", "John", "john.smith@predictif.fr", "password1", "male", "1234567890");
@@ -90,50 +82,5 @@ public class EmployeeService {
             JpaUtil.annulerTransaction();
             return false;
         }
-    }
-
-    // Ce service identifie un client à partir de son adresse mail, puis vérifie si
-    // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
-    // renvoie l'entité Client si l'authentification a réussie, ou null en cas
-    // d'échec.
-    public static long authentifierEmploye(String mail, String motDePasse) {
-
-        JpaUtil.creerContextePersistance();
-        Employee employee = EmployeeDao.findByEmail(mail);
-        if (employee != null && employee.getMotDePasse().equals(motDePasse)) {
-            return employee.getId();
-        } else {
-            return -1;
-        }
-    }
-
-    public static Employee chercherEmployeParMail(String mail) {
-        JpaUtil.creerContextePersistance();
-        return EmployeeDao.findByEmail(mail);
-    }
-
-    // Ce service renvoie toutes les entités Client triées par ordre alphabétique
-    public static List<Employee> consulterListeEmployes() {
-        JpaUtil.creerContextePersistance();
-        return EmployeeDao.getAll();
-    }
-
-    public static List<String> GetHelp(Client client, int love, int health, int job) {
-
-        AstroNetApi astroApi = new AstroNetApi();
-        try {
-            List<String> predictions = astroApi.getPredictions(client.getAstralProfile().getCouleurPorteBonheur(),
-                    client.getAstralProfile().getAnimalTotem(), love, health, job);
-            return predictions;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static void FinConsultation(Consultation consultation, String comment, int duration) {
-        consultation.setCommentaire(comment);
-        consultation.setDuree(duration);
-        ConsultationDao.update(consultation);
     }
 }

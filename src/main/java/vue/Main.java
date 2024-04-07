@@ -16,10 +16,8 @@ import metier.modele.Client;
 import metier.modele.Consultation;
 import metier.modele.Employee;
 import metier.modele.Medium;
-import metier.service.AppointmentService;
-import metier.service.AuthenticationService;
-import metier.service.ClientService;
-import metier.service.EmployeeService;
+import metier.service.UserServices;
+import metier.service.InitializationService;
 
 /**
  *
@@ -44,24 +42,24 @@ public class Main {
         JpaUtil.desactiverLog();
         JpaUtil.creerFabriquePersistance();
 
-        EmployeeService.InitEmployee();
-        EmployeeService.InitMedium();
+        InitializationService.InitEmployee();
+        InitializationService.InitMedium();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Inscription client" + ANSI_RESET);
-        ClientService.inscrireClient("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
+        UserServices.inscrireClient("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
                 "2003-08-27");
         System.err.println();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Client dans BD : " + ANSI_RESET);
-        List<Client> clients = ClientService.consulterListeClients();
+        List<Client> clients = UserServices.consulterListeClients();
         System.out.println(clients);
         System.out.println();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Employes dans BD : " + ANSI_RESET);
-        List<Employee> employes = EmployeeService.consulterListeEmployes();
+        List<Employee> employes = UserServices.consulterListeEmployes();
         System.out.println(employes);
         System.out.println();
 
@@ -80,7 +78,7 @@ public class Main {
         String dateString = "2024-9-30";
         System.out.println(ANSI_RED + "Date chosen : " + dateString + ANSI_RESET);
         System.out.println(ANSI_RED + "List of Available Mediums " + ANSI_RESET);
-        List<Medium> availableMediums = AppointmentService.getAvailableMediums(dateString);
+        List<Medium> availableMediums = UserServices.getAvailableMediums(dateString);
         System.out.println(availableMediums);
         System.out.println();
 
@@ -89,11 +87,11 @@ public class Main {
         System.out.println(mediumChosen);
         System.out.println();
 
-        Employee employeeChosen = AppointmentService.chooseEmployee(mediumChosen, dateString);
+        Employee employeeChosen = UserServices.chooseEmployee(mediumChosen, dateString);
         System.out.println(ANSI_RED + "Employee chosen : " + ANSI_RESET);
         System.out.println(employeeChosen);
         System.out.println();
-        Consultation consultation = AppointmentService.CreateAppointment(clients.get(0),
+        Consultation consultation = UserServices.CreateAppointment(clients.get(0),
                 employeeChosen,
                 dateString,
                 mediumChosen, 20);
@@ -103,7 +101,7 @@ public class Main {
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Recheck Available Mediums" + ANSI_RESET);
-        List<Medium> availableMediums2 = AppointmentService.getAvailableMediums(dateString);
+        List<Medium> availableMediums2 = UserServices.getAvailableMediums(dateString);
         System.out.println(availableMediums2);
         System.out.println();
 
@@ -127,7 +125,7 @@ public class Main {
         int love = 1;
         int health = 1;
         int job = 1;
-        List<String> predictions = EmployeeService.GetHelp(clients.get(0), love, health, job);
+        List<String> predictions = UserServices.GetHelp(clients.get(0), love, health, job);
         String lovePrediction = predictions.get(0);
         String healthPrediction = predictions.get(1);
         String jobPrediction = predictions.get(2);
@@ -141,7 +139,7 @@ public class Main {
         System.out.println(ANSI_RED + "Fin de la consultation..." + ANSI_RESET);
         String comment = "very intresting consultation";
         int duration = 30;
-        EmployeeService.FinConsultation(consultation, comment, duration);
+        UserServices.FinConsultation(consultation, comment, duration);
         ConsultationDao.getAll();
         System.out.println(ConsultationDao.getAll());
         System.out.println();
@@ -152,7 +150,7 @@ public class Main {
     private static void TestAuthentification() {
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Authetication of an employee with correct infos" + ANSI_RESET);
-        Object[] result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password1");
+        Object[] result = UserServices.Authenticate("john.smith@predictif.fr", "password1");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
             if (result[1].equals("employee")) {
@@ -167,7 +165,7 @@ public class Main {
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Authetication of an employee with incorrect infos" + ANSI_RESET);
-        result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password2");
+        result = UserServices.Authenticate("john.smith@predictif.fr", "password2");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
             if (result[1].equals("employee")) {
@@ -182,7 +180,7 @@ public class Main {
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Authetication of an client with correct infos" + ANSI_RESET);
-        result = AuthenticationService.Authenticate("sqgsg@qdf.sf", "123456");
+        result = UserServices.Authenticate("sqgsg@qdf.sf", "123456");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
             if (result[1].equals("employee")) {
@@ -197,7 +195,7 @@ public class Main {
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Authetication of an client with incorrect infos" + ANSI_RESET);
-        result = AuthenticationService.Authenticate("sqgsg@qdf.sf", "1234567");
+        result = UserServices.Authenticate("sqgsg@qdf.sf", "1234567");
 
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
