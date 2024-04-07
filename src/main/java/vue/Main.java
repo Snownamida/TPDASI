@@ -79,7 +79,7 @@ public class Main {
         System.out.println(ANSI_RED + "Trying to take an appointment... " + ANSI_RESET);
         Consultation consultation = AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30",
                 null, 20);
-        consultation.setCommentaire("this client was very depressed and i helped him");
+        // consultation.setCommentaire("this client was very depressed and i helped him");
         ConsultationDao.update(consultation);
         System.out.println(consultation);
         System.out.println();
@@ -89,15 +89,7 @@ public class Main {
         System.out.println(ANSI_RED +
                 "previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom()
                 + ANSI_RESET);
-
-        for (Consultation c : consultationList) {
-            // Print employee and comment
-            System.out.println(ANSI_RED + "Employee : " + ANSI_RESET);
-            System.out.println(c.getEmployee());
-            System.out.println(ANSI_RED + "Comment : " + ANSI_RESET);
-            System.out.printf(c.getCommentaire());
-            System.out.println("\n");
-        }
+        System.out.println(consultationList);
         System.out.println();
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "astral profile of this client : \n" + clients.get(0).getAstralProfile()

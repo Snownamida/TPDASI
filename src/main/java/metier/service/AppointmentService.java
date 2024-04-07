@@ -11,7 +11,7 @@ public class AppointmentService {
             int duree) {
         try {
             Consultation consultation = ConsultationService.creerConsultation(date,
-                    duree, date, medium, client, employee);
+                    duree, null, medium, client, employee);
             if (consultation == null)
                 throw new Exception("Erreur lors de la création du rendez-vous");
 

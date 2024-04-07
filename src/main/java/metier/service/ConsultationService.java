@@ -28,7 +28,7 @@ public class ConsultationService {
         }
 
         try {
-            Consultation consultation = new Consultation(date, duree, medium, client, employee);
+            Consultation consultation = new Consultation(date, duree, medium, client, employee, commentaire);
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             ConsultationDao.create(consultation);
