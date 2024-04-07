@@ -77,11 +77,34 @@ public class Main {
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Trying to take an appointment... " + ANSI_RESET);
-        Consultation consultation = AppointmentService.CreateAppointment(clients.get(0), employes.get(0), "2024-9-30",
-                null, 20);
-        // consultation.setCommentaire("this client was very depressed and i helped him");
+        String dateString = "2024-9-30";
+        System.out.println(ANSI_RED + "Date chosen : " + dateString + ANSI_RESET);
+        System.out.println(ANSI_RED + "List of Available Mediums " + ANSI_RESET);
+        List<Medium> availableMediums = AppointmentService.getAvailableMediums(dateString);
+        System.out.println(availableMediums);
+        System.out.println();
+
+        Medium mediumChosen = availableMediums.get(1);
+        System.out.println(ANSI_RED + "Medium chosen : " + ANSI_RESET);
+        System.out.println(mediumChosen);
+        System.out.println();
+
+        Employee employeeChosen = AppointmentService.chooseEmployee(mediumChosen, dateString);
+        System.out.println(ANSI_RED + "Employee chosen : " + ANSI_RESET);
+        System.out.println(employeeChosen);
+        System.out.println();
+        Consultation consultation = AppointmentService.CreateAppointment(clients.get(0),
+                employeeChosen,
+                dateString,
+                mediumChosen, 20);
         ConsultationDao.update(consultation);
         System.out.println(consultation);
+        System.out.println();
+
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Recheck Available Mediums" + ANSI_RESET);
+        List<Medium> availableMediums2 = AppointmentService.getAvailableMediums(dateString);
+        System.out.println(availableMediums2);
         System.out.println();
 
         System.out.println(SEPARATOR);
@@ -91,10 +114,12 @@ public class Main {
                 + ANSI_RESET);
         System.out.println(consultationList);
         System.out.println();
+
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "astral profile of this client : \n" + clients.get(0).getAstralProfile()
-                + ANSI_RESET);
-        System.out.println();
+        System.out.println(
+                ANSI_RED + "astral profile of this client : \n" + ANSI_RESET);
+        System.out.println(clients.get(0).getAstralProfile());
+        System.out.println(consultationList);
 
         // Get help
         System.out.println(SEPARATOR);
@@ -118,9 +143,7 @@ public class Main {
         int duration = 30;
         EmployeeService.FinConsultation(consultation, comment, duration);
         ConsultationDao.getAll();
-        for (Consultation c : ConsultationDao.getAll()) {
-            System.out.println(c);
-        }
+        System.out.println(ConsultationDao.getAll());
         System.out.println();
 
         JpaUtil.fermerFabriquePersistance();

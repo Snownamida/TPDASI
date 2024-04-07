@@ -4,12 +4,12 @@
  */
 package dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import metier.modele.Client;
 import metier.modele.Employee;
 
 /**
@@ -51,4 +51,17 @@ public class EmployeeDao {
         TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c", Employee.class);
         return query.getResultList();
     }
+
+    // select employee from Employee e where e.id not in (select c.employee.id from
+    // Consultation c where c.date = :date)
+    public static List<Employee> getAvailable(Date date) {
+        EntityManager em = JpaUtil.obtenirContextePersistance();
+        TypedQuery<Employee> query = em.createQuery(
+                "SELECT e FROM Employee e WHERE e.id NOT IN (SELECT c.employee.id FROM Consultation c WHERE c.date = :date)",
+                Employee.class);
+        query.setParameter("date", date);
+        List<Employee> results = query.getResultList();
+        return results;
+    }
+
 }

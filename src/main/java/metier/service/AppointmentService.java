@@ -1,5 +1,13 @@
 package metier.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import dao.EmployeeDao;
+import dao.MediumDao;
 import metier.modele.Client;
 import metier.modele.Consultation;
 import metier.modele.Employee;
@@ -7,6 +15,40 @@ import metier.modele.Medium;
 import util.Message;
 
 public class AppointmentService {
+    public static List<Medium> getAvailableMediums(String dateString) {
+        Date date;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+        List<Employee> employees = EmployeeDao.getAvailable(date);
+        List<String> availableSex = employees.stream().map(Employee::getSex).distinct().collect(Collectors.toList());
+        return MediumDao.getAll().stream().filter(medium -> availableSex.contains(medium.getGenre()))
+                .collect(Collectors.toList());
+    }
+
+    public static Employee chooseEmployee(Medium medium, String dateString) {
+        Date date;
+        try {
+            date = new SimpleDateFormat("yyyy-MM-dd").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+        List<Employee> employees = EmployeeDao.getAvailable(date);
+        List<Employee> availableEmployees = employees.stream()
+                .filter(employee -> employee.getSex().equals(medium.getGenre()))
+                .collect(Collectors.toList());
+        if (availableEmployees.isEmpty()) {
+            System.err.println("Aucun employé disponible");
+            return null;
+        }
+        // Choose a random employee
+        return availableEmployees.get((int) (Math.random() * availableEmployees.size()));
+    }
+
     public static Consultation CreateAppointment(Client client, Employee employee, String date, Medium medium,
             int duree) {
         try {

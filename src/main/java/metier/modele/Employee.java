@@ -28,26 +28,23 @@ public class Employee {
     private String motDePasse;
     private String sex;
     private String phone;
-    private Boolean available;
 
     @Override
     public String toString() {
-        return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, phone=%s]",
-                id, nom, prenom, email, phone);
+        return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, phone=%s, sex=%s]",
+                id, nom, prenom, email, phone,sex);
     }
 
     protected Employee() {
     }
 
-    public Employee(String nom, String prenom, String email, String motDePasse, String sex, String phone,
-            Boolean available) {
+    public Employee(String nom, String prenom, String email, String motDePasse, String sex, String phone) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.motDePasse = motDePasse;
         this.sex = sex;
         this.phone = phone;
-        this.available = available;
     }
 
     public String getSex() {
@@ -56,14 +53,6 @@ public class Employee {
 
     public void setSex(String sex) {
         this.sex = sex;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
     }
 
     public void setId(Long id) {
@@ -113,5 +102,5 @@ public class Employee {
     public String getPhone() {
         return phone;
     }
-    
+
 }

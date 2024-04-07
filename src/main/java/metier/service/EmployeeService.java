@@ -30,12 +30,10 @@ public class EmployeeService {
 
     public static Boolean InitEmployee() {
 
-        Employee emp1 = new Employee("Smith", "John", "john.smith@predictif.fr", "password1", "male", "1234567890",
-                true);
+        Employee emp1 = new Employee("Smith", "John", "john.smith@predictif.fr", "password1", "male", "1234567890");
         Employee emp2 = new Employee("Johnson", "Mary", "mary.johnson@predictif.fr", "password2", "female",
-                "2345678901", false);
-        Employee emp3 = new Employee("Brown", "James", "james.brown@predictif.fr", "password3", "male", "3456789012",
-                true);
+                "2345678901");
+        Employee emp3 = new Employee("Brown", "James", "james.brown@predictif.fr", "password3", "male", "3456789012");
 
         try {
             JpaUtil.creerContextePersistance();
@@ -62,11 +60,14 @@ public class EmployeeService {
 
     public static Boolean InitMedium() {
 
-        Medium med1 = new Astrologer("ENS-Astro", "2006", "Serena", 
-        "Basée à Champigny-sur-Marne, Serena vous révèlera votre avenir pour éclairer votre passé.", "F", "../images/mediums/serena.jpg");
-        Medium med2 = new Cartomancien("Mme Irma", "Votre avenir est devant vous: regardons-le ensemble!", "F",
+        Medium med1 = new Astrologer("ENS-Astro", "2006", "Serena",
+                "Basée à Champigny-sur-Marne, Serena vous révèlera votre avenir pour éclairer votre passé.", "female",
+                "../images/mediums/serena.jpg");
+        Medium med2 = new Cartomancien("Mme Irma", "Votre avenir est devant vous: regardons-le ensemble!", "female",
                 "../images/mediums/irma.jpg");
-        Medium med3 = new Spirite("Marc de café", "Gwen","Spécialiste des grandes conversations au-delà de TOUTES les frontières", "F", "../images/mediums/gwen.jpg");
+        Medium med3 = new Spirite("Marc de café", "Gwen",
+                "Spécialiste des grandes conversations au-delà de TOUTES les frontières", "male",
+                "../images/mediums/gwen.jpg");
 
         try {
             JpaUtil.creerContextePersistance();
