@@ -60,6 +60,12 @@ public class UserServices {
         return EmployeeDao.getAll();
     }
 
+
+    public static List<Medium> consulterListeMediums() {
+        JpaUtil.creerContextePersistance();
+        return MediumDao.getAll();
+    }
+
     public static List<String> GetHelp(Client client, int love, int health, int job) {
 
         AstroNetApi astroApi = new AstroNetApi();
@@ -79,7 +85,7 @@ public class UserServices {
         ConsultationDao.update(consultation);
     }
 
-    public static Consultation creerConsultation(String dateString, int duree, String commentaire, Medium medium,
+    public static Consultation creerConsultation(String dateString, String commentaire, Medium medium,
             Client client, Employee employee) {
 
         Date date;
@@ -91,7 +97,7 @@ public class UserServices {
         }
 
         try {
-            Consultation consultation = new Consultation(date, duree, medium, client, employee, commentaire);
+            Consultation consultation = new Consultation(date, medium, client, employee, commentaire);
             JpaUtil.creerContextePersistance();
             JpaUtil.ouvrirTransaction();
             ConsultationDao.create(consultation);
@@ -280,11 +286,10 @@ public class UserServices {
         return availableEmployees.get((int) (Math.random() * availableEmployees.size()));
     }
 
-    public static Consultation CreateAppointment(Client client, Employee employee, String date, Medium medium,
-            int duree) {
+    public static Consultation CreateAppointment(Client client, Employee employee, String date, Medium medium) {
         try {
             Consultation consultation = creerConsultation(date,
-                    duree, null, medium, client, employee);
+                    null, medium, client, employee);
             if (consultation == null)
                 throw new Exception("Erreur lors de la création du rendez-vous");
 

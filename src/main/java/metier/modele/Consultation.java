@@ -38,9 +38,8 @@ public class Consultation {
     protected Consultation() {
     }
 
-    public Consultation(Date date, int duree, Medium medium, Client client, Employee employee, String commentaire) {
+    public Consultation(Date date, Medium medium, Client client, Employee employee, String commentaire) {
         this.date = date;
-        this.duree = duree;
         this.medium = medium;
         this.client = client;
         this.employee = employee;
