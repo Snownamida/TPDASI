@@ -19,9 +19,21 @@ import metier.modele.Spirite;
  *
  * @author staider
  */
+/**
+ * This class provides methods for initializing the employee and medium data in the application.
+ */
+/**
+ * This class provides methods for initializing the employee and medium data in the application.
+ */
 public class InitializationService {
-    public static Boolean InitEmployee() {
 
+
+    /**
+     * Initializes the employee data.
+     * 
+     * @return true if the employee data is successfully initialized, false otherwise.
+     */
+    public static Boolean InitEmployee() {
         Employee emp1 = new Employee("Smith", "John", "john.smith@predictif.fr", "password1", "male", "1234567890");
         Employee emp2 = new Employee("Johnson", "Mary", "mary.johnson@predictif.fr", "password2", "female",
                 "2345678901");
@@ -50,6 +62,11 @@ public class InitializationService {
         }
     }
 
+    /**
+     * Initializes the list of mediums.
+     * 
+     * @return true if the initialization is successful, false otherwise.
+     */
     public static Boolean InitMedium() {
 
         Medium med1 = new Astrologer("ENS-Astro", "2006", "Serena",
