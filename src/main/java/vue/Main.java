@@ -6,6 +6,7 @@
 package vue;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.ClientDao;
 import dao.ConsultationDao;
@@ -18,6 +19,7 @@ import metier.modele.Employee;
 import metier.modele.Medium;
 import metier.service.UserServices;
 import metier.service.InitializationService;
+
 
 /**
  *
@@ -145,6 +147,18 @@ public class Main {
         System.out.println();
 
         JpaUtil.fermerFabriquePersistance();
+        
+        System.out.println();
+        System.out.println("consultation per client :");
+        System.out.println();
+
+        List<Map<String, Object>> consultationDataList = ConsultationDao.getConsultationByClient();
+
+        for (Map<String, Object> consultationData : consultationDataList) {
+            String client = (String) consultationData.get("client");
+            int count = (int) consultationData.get("consultation_count");
+            System.out.println("Client: " + client + ", Consultation Count: " + count);
+        }
     }
 
     private static void TestAuthentification() {
