@@ -34,9 +34,9 @@ import util.Message;
  */
 public class UserServices {
 
-    // Ce service identifie un client à partir de son adresse mail, puis vérifie si
+    // Ce service identifie un employe à partir de son adresse mail, puis vérifie si
     // le mot de passe indiqué correspond au mot de passe enregistré. Ce service
-    // renvoie l'entité Client si l'authentification a réussie, ou null en cas
+    // renvoie l'entité Employe si l'authentification a réussie, ou null en cas
     // d'échec.
     public static long authentifierEmploye(String mail, String motDePasse) {
 
@@ -112,7 +112,7 @@ public class UserServices {
     }
 
     public static Boolean inscrireClient(String nom, String prenom, String mail, String motDePasse,
-            String adressePostale, String phone,
+            String adressePostale, String telephone,
             String birthdateString) {
 
         Date birthdate;
@@ -126,7 +126,7 @@ public class UserServices {
         }
 
         try {
-            Client client = new Client(nom, prenom, mail, motDePasse, adressePostale, phone, birthdate);
+            Client client = new Client(nom, prenom, mail, motDePasse, adressePostale, telephone, birthdate);
             LatLng clientCoord = GeoNetApi.getLatLng(adressePostale);
             if (clientCoord == null) {
                 sendErrorEmail(mail, "Adresse postale invalide");
@@ -255,7 +255,7 @@ public class UserServices {
             return null;
         }
         List<Employee> employees = EmployeeDao.getAvailable(date);
-        List<String> availableSex = employees.stream().map(Employee::getSex).distinct().collect(Collectors.toList());
+        List<String> availableSex = employees.stream().map(Employee::getGenre).distinct().collect(Collectors.toList());
         return MediumDao.getAll().stream().filter(medium -> availableSex.contains(medium.getGenre()))
                 .collect(Collectors.toList());
     }
@@ -270,7 +270,7 @@ public class UserServices {
         }
         List<Employee> employees = EmployeeDao.getAvailable(date);
         List<Employee> availableEmployees = employees.stream()
-                .filter(employee -> employee.getSex().equals(medium.getGenre()))
+                .filter(employee -> employee.getGenre().equals(medium.getGenre()))
                 .collect(Collectors.toList());
         if (availableEmployees.isEmpty()) {
             System.err.println("Aucun employé disponible");
@@ -292,7 +292,7 @@ public class UserServices {
                     "Bonjour " + client.getPrenom() + ",\n" + "Votre rendez-vous avec " + employee.getPrenom() + " "
                             + employee.getNom() + " est confirmé pour le " + date + ".\n"
                             + "Vous pouvez me contacter au "
-                            + employee.getPhone() + " pour toute question.\n" + "Cordialement,\n" + employee.getPrenom()
+                            + employee.getTelephone() + " pour toute question.\n" + "Cordialement,\n" + employee.getPrenom()
                             + " " + employee.getNom());
             return consultation;
         } catch (Exception e) {

@@ -149,7 +149,7 @@ public class Main {
 
     private static void TestAuthentification() {
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an employee with correct infos" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Authetication of an employee with correct info" + ANSI_RESET);
         Object[] result = UserServices.Authenticate("john.smith@predictif.fr", "password1");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
@@ -164,7 +164,7 @@ public class Main {
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an employee with incorrect infos" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Authetication of an employee with incorrect info" + ANSI_RESET);
         result = UserServices.Authenticate("john.smith@predictif.fr", "password2");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
@@ -179,7 +179,7 @@ public class Main {
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an client with correct infos" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Authetication of an client with correct info" + ANSI_RESET);
         result = UserServices.Authenticate("sqgsg@qdf.sf", "123456");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
@@ -194,7 +194,7 @@ public class Main {
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an client with incorrect infos" + ANSI_RESET);
+        System.out.println(ANSI_RED + "Authetication of an client with incorrect info" + ANSI_RESET);
         result = UserServices.Authenticate("sqgsg@qdf.sf", "1234567");
 
         if (result != null) {

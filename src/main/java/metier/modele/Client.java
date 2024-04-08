@@ -37,7 +37,7 @@ public class Client implements Serializable {
     private String adressePostale;
     private Double latitude;
     private Double longitude;
-    private String phone;
+    private String telephone;
     @Temporal(TemporalType.DATE)
     private Date birthdate;
     @Embedded
@@ -54,20 +54,20 @@ public class Client implements Serializable {
                 + ", id=" + id
                 + ", latitude=" + latitude + ", longitude=" + longitude
                 + ", mail=" + mail + ", motDePasse=" + motDePasse
-                + ", phone=" + phone + ", astralProfile=" + astralProfile + "]";
+                + ", telephone=" + telephone + ", astralProfile=" + astralProfile + "]";
     }
 
     protected Client() {
     }
 
-    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String phone,
+    public Client(String nom, String prenom, String mail, String motDePasse, String adressePostale, String telephone,
             Date birthdate) {
         this.nom = nom;
         this.prenom = prenom;
         this.mail = mail;
         this.motDePasse = motDePasse;
         this.adressePostale = adressePostale;
-        this.phone = phone;
+        this.telephone = telephone;
         this.birthdate = birthdate;
 
     }
@@ -144,12 +144,12 @@ public class Client implements Serializable {
         return longitude;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getTelephone() {
+        return telephone;
     }
 
     public Date getBirthdate() {
