@@ -55,7 +55,7 @@ public class InitializationService {
         Medium med1 = new Astrologer("ENS-Astro", "2006", "Serena",
                 "Basée à Champigny-sur-Marne, Serena vous révèlera votre avenir pour éclairer votre passé.", "female",
                 "../images/mediums/serena.jpg");
-        Medium med2 = new Cartomancien("Mme Irma", "Votre avenir est devant vous: regardons-le ensemble!", "female",
+        Medium med2 = new Cartomancien("Irma", "Votre avenir est devant vous: regardons-le ensemble!", "female",
                 "../images/mediums/irma.jpg");
         Medium med3 = new Spirite("Marc de café", "Gwen",
                 "Spécialiste des grandes conversations au-delà de TOUTES les frontières", "male",
