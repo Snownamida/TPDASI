@@ -152,14 +152,32 @@ public class Main {
         System.out.println(ANSI_RED + "Statistiques de l'entreprise : " + ANSI_RESET);
         System.out.println();
         // add consultations for samy
-        
-
+        UserServices.creerConsultation("2021-09-15", "comment1", mediums.get(1), clients.get(0), employes.get(0));
+        UserServices.creerConsultation("2021-09-25", "comment2", mediums.get(0), clients.get(0), employes.get(1));
+        UserServices.creerConsultation("2021-10-25", "comment3", mediums.get(0), clients.get(1), employes.get(1));
         System.out.println("consultations par client :");
         System.out.println();
 
         Map<Client, Long> consultationCountPerClient = ConsultationDao.getConsultationCountPerClient();
         for (Map.Entry<Client, Long> entry : consultationCountPerClient.entrySet()) {
-            System.out.println(entry.getKey().getPrenom() + " : " + entry.getValue());
+            System.out.println(entry.getKey().getPrenom() + " " + entry.getKey().getNom() + " : " + entry.getValue());
+        }
+
+        System.out.println();
+        System.out.println("consultations par employé :");
+        System.out.println();
+
+        Map<Employee, Long> consultationCountPerEmployee = ConsultationDao.getConsultationCountPerEmployee();
+        for (Map.Entry<Employee, Long> entry : consultationCountPerEmployee.entrySet()) {
+            System.out.println(entry.getKey().getPrenom() + " " + entry.getKey().getNom() + " : " + entry.getValue());
+        }
+
+        System.out.println();
+        System.out.println("consultations par medium :");
+        System.out.println();
+        Map<Medium, Long> consultationCountPerMedium = ConsultationDao.getConsultationCountPerMedium();
+        for (Map.Entry<Medium, Long> entry : consultationCountPerMedium.entrySet()) {
+            System.out.println(entry.getKey().getDenomination() + " : " + entry.getValue());
         }
 
         JpaUtil.fermerFabriquePersistance();
