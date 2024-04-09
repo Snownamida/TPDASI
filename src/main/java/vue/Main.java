@@ -6,20 +6,19 @@
 package vue;
 
 import java.util.List;
+import java.util.Map;
 
 import dao.ClientDao;
 import dao.ConsultationDao;
 import dao.EmployeeDao;
 import dao.JpaUtil;
-import dao.MediumDao;
 import metier.modele.Client;
 import metier.modele.Consultation;
 import metier.modele.Employee;
 import metier.modele.Medium;
-import metier.service.AppointmentService;
-import metier.service.AuthenticationService;
-import metier.service.ClientService;
-import metier.service.EmployeeService;
+import metier.service.InitializationService;
+import metier.service.UserServices;
+
 
 /**
  *
@@ -44,43 +43,43 @@ public class Main {
         JpaUtil.desactiverLog();
         JpaUtil.creerFabriquePersistance();
 
-        EmployeeService.InitEmployee();
-        EmployeeService.InitMedium();
+        InitializationService.InitEmployee();
+        InitializationService.InitMedium();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Inscription client" + ANSI_RESET);
-        ClientService.inscrireClient("Taider", "Samy", "sqgsg@qdf.sf", "123456", "Lyon", "1234567890",
+        UserServices.inscrireClient("Taider", "Samy", "samsam@qdf.fr", "123456", "Lyon", "1234567890",
                 "2003-08-27");
+        UserServices.inscrireClient("Sun", "Jixiang", "jsun@htk.com", "456789", "Paris", "0987654321",
+                "2003-12-21");
         System.err.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Client dans BD : " + ANSI_RESET);
-        List<Client> clients = ClientService.consulterListeClients();
+        System.out.println(ANSI_RED + "Clients dans BD : " + ANSI_RESET);
+        List<Client> clients = UserServices.consulterListeClients();
         System.out.println(clients);
         System.out.println();
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Employes dans BD : " + ANSI_RESET);
-        List<Employee> employes = EmployeeService.consulterListeEmployes();
+        List<Employee> employes = UserServices.consulterListeEmployes();
         System.out.println(employes);
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Voici les Medium qui existent dans la base de données : " + ANSI_RESET);
-        List<Medium> mediums = MediumDao.getAll();
-        for (Medium m : mediums) {
-            System.out.println(m);
-        }
+        System.out.println(ANSI_RED + "Mediums dans BD : " + ANSI_RESET);
+        List<Medium> mediums = UserServices.consulterListeMediums();
+        System.out.println(mediums);
         System.out.println();
 
         TestAuthentification();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Trying to take an appointment... " + ANSI_RESET);
+        System.out.println(ANSI_RED + "Essayons de prendre RDV... " + ANSI_RESET);
         String dateString = "2024-9-30";
-        System.out.println(ANSI_RED + "Date chosen : " + dateString + ANSI_RESET);
-        System.out.println(ANSI_RED + "List of Available Mediums " + ANSI_RESET);
-        List<Medium> availableMediums = AppointmentService.getAvailableMediums(dateString);
+        System.out.println(ANSI_RED + "Date choisie : " + dateString + ANSI_RESET);
+        System.out.println(ANSI_RED + "Liste des Mediums dispos " + ANSI_RESET);
+        List<Medium> availableMediums = UserServices.getAvailableMediums(dateString);
         System.out.println(availableMediums);
         System.out.println();
 
@@ -89,45 +88,45 @@ public class Main {
         System.out.println(mediumChosen);
         System.out.println();
 
-        Employee employeeChosen = AppointmentService.chooseEmployee(mediumChosen, dateString);
+        Employee employeeChosen = UserServices.chooseEmployee(mediumChosen, dateString);
         System.out.println(ANSI_RED + "Employee chosen : " + ANSI_RESET);
         System.out.println(employeeChosen);
         System.out.println();
-        Consultation consultation = AppointmentService.CreateAppointment(clients.get(0),
+        Consultation consultation = UserServices.CreateAppointment(clients.get(0),
                 employeeChosen,
                 dateString,
-                mediumChosen, 20);
+                mediumChosen);
         ConsultationDao.update(consultation);
         System.out.println(consultation);
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Recheck Available Mediums" + ANSI_RESET);
-        List<Medium> availableMediums2 = AppointmentService.getAvailableMediums(dateString);
+        System.out.println(ANSI_RED + "Re-check Mediums dispos" + ANSI_RESET);
+        List<Medium> availableMediums2 = UserServices.getAvailableMediums(dateString);
         System.out.println(availableMediums2);
         System.out.println();
 
         System.out.println(SEPARATOR);
         List<Consultation> consultationList = clients.get(0).getConsultations();
         System.out.println(ANSI_RED +
-                "previous consultations for client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom()
+                "anciennes consultations du client : " + clients.get(0).getNom() + " " + clients.get(0).getPrenom()
                 + ANSI_RESET);
         System.out.println(consultationList);
         System.out.println();
 
         System.out.println(SEPARATOR);
         System.out.println(
-                ANSI_RED + "astral profile of this client : \n" + ANSI_RESET);
+                ANSI_RED + "profile astral du client : \n" + ANSI_RESET);
         System.out.println(clients.get(0).getAstralProfile());
         System.out.println(consultationList);
 
         // Get help
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Get help !!!" + ANSI_RESET);
+        System.out.println(ANSI_RED + "A l'aide !!!" + ANSI_RESET);
         int love = 1;
         int health = 1;
         int job = 1;
-        List<String> predictions = EmployeeService.GetHelp(clients.get(0), love, health, job);
+        List<String> predictions = UserServices.GetHelp(clients.get(0), love, health, job);
         String lovePrediction = predictions.get(0);
         String healthPrediction = predictions.get(1);
         String jobPrediction = predictions.get(2);
@@ -139,20 +138,56 @@ public class Main {
 
         System.out.println(SEPARATOR);
         System.out.println(ANSI_RED + "Fin de la consultation..." + ANSI_RESET);
-        String comment = "very intresting consultation";
+        String comment = "consultation très interessante";
         int duration = 30;
-        EmployeeService.FinConsultation(consultation, comment, duration);
+        System.out.println(ANSI_RED +
+                "commentaire laissé : " + comment + "\n" + "durée : " + duration + " minutes" + ANSI_RESET);
+        UserServices.FinConsultation(consultation, comment, duration);
+        System.out.println(ANSI_RED + "Consultations dans BD : " + ANSI_RESET);
         ConsultationDao.getAll();
         System.out.println(ConsultationDao.getAll());
         System.out.println();
 
+        System.out.println(SEPARATOR);
+        System.out.println(ANSI_RED + "Statistiques de l'entreprise : " + ANSI_RESET);
+        System.out.println();
+        // add consultations for samy
+        UserServices.creerConsultation("2021-09-15", "comment1", mediums.get(1), clients.get(0), employes.get(0));
+        UserServices.creerConsultation("2021-09-25", "comment2", mediums.get(0), clients.get(0), employes.get(1));
+        UserServices.creerConsultation("2021-10-25", "comment3", mediums.get(0), clients.get(1), employes.get(1));
+        System.out.println("consultations par client :");
+        System.out.println();
+
+        Map<Client, Long> consultationCountPerClient = ConsultationDao.getConsultationCountPerClient();
+        for (Map.Entry<Client, Long> entry : consultationCountPerClient.entrySet()) {
+            System.out.println(entry.getKey().getPrenom() + " " + entry.getKey().getNom() + " : " + entry.getValue());
+        }
+
+        System.out.println();
+        System.out.println("consultations par employé :");
+        System.out.println();
+
+        Map<Employee, Long> consultationCountPerEmployee = ConsultationDao.getConsultationCountPerEmployee();
+        for (Map.Entry<Employee, Long> entry : consultationCountPerEmployee.entrySet()) {
+            System.out.println(entry.getKey().getPrenom() + " " + entry.getKey().getNom() + " : " + entry.getValue());
+        }
+
+        System.out.println();
+        System.out.println("consultations par medium :");
+        System.out.println();
+        Map<Medium, Long> consultationCountPerMedium = ConsultationDao.getConsultationCountPerMedium();
+        for (Map.Entry<Medium, Long> entry : consultationCountPerMedium.entrySet()) {
+            System.out.println(entry.getKey().getDenomination() + " : " + entry.getValue());
+        }
+
         JpaUtil.fermerFabriquePersistance();
+
     }
 
     private static void TestAuthentification() {
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an employee with correct infos" + ANSI_RESET);
-        Object[] result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password1");
+        System.out.println(ANSI_RED + "Authetication of an employee with correct info" + ANSI_RESET);
+        Object[] result = UserServices.Authenticate("john.smith@predictif.fr", "password1");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
             if (result[1].equals("employee")) {
@@ -166,8 +201,8 @@ public class Main {
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an employee with incorrect infos" + ANSI_RESET);
-        result = AuthenticationService.Authenticate("john.smith@predictif.fr", "password2");
+        System.out.println(ANSI_RED + "Authetication of an employee with incorrect info" + ANSI_RESET);
+        result = UserServices.Authenticate("john.smith@predictif.fr", "password2");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
             if (result[1].equals("employee")) {
@@ -181,8 +216,8 @@ public class Main {
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an client with correct infos" + ANSI_RESET);
-        result = AuthenticationService.Authenticate("sqgsg@qdf.sf", "123456");
+        System.out.println(ANSI_RED + "Authetication of an client with correct info" + ANSI_RESET);
+        result = UserServices.Authenticate("samsam@qdf.fr", "123456");
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
             if (result[1].equals("employee")) {
@@ -196,8 +231,8 @@ public class Main {
         System.out.println();
 
         System.out.println(SEPARATOR);
-        System.out.println(ANSI_RED + "Authetication of an client with incorrect infos" + ANSI_RESET);
-        result = AuthenticationService.Authenticate("sqgsg@qdf.sf", "1234567");
+        System.out.println(ANSI_RED + "Authetication of an client with incorrect info" + ANSI_RESET);
+        result = UserServices.Authenticate("samsam@qdf.fr", "1234567");
 
         if (result != null) {
             System.out.println(ANSI_RED + "authetification...OK " + ANSI_RESET);
@@ -210,7 +245,5 @@ public class Main {
             System.out.println("authetification...KO ");
         }
         System.out.println();
-
     }
-
 }

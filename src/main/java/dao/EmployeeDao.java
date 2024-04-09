@@ -45,7 +45,6 @@ public class EmployeeDao {
     }
 
     // getAll
-
     public static List<Employee> getAll() {
         EntityManager em = JpaUtil.obtenirContextePersistance();
         TypedQuery<Employee> query = em.createQuery("SELECT c FROM Employee c", Employee.class);

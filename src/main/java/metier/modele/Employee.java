@@ -26,33 +26,33 @@ public class Employee {
     @Column(unique = true)
     private String email;
     private String motDePasse;
-    private String sex;
-    private String phone;
+    private String genre;
+    private String telephone;
 
     @Override
     public String toString() {
-        return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, phone=%s, sex=%s]",
-                id, nom, prenom, email, phone,sex);
+        return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, telephone=%s, genre=%s]",
+                id, nom, prenom, email, telephone,genre);
     }
 
     protected Employee() {
     }
 
-    public Employee(String nom, String prenom, String email, String motDePasse, String sex, String phone) {
+    public Employee(String nom, String prenom, String email, String motDePasse, String genre, String telephone) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.motDePasse = motDePasse;
-        this.sex = sex;
-        this.phone = phone;
+        this.genre = genre;
+        this.telephone = telephone;
     }
 
-    public String getSex() {
-        return sex;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public void setId(Long id) {
@@ -95,12 +95,12 @@ public class Employee {
         return motDePasse;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getTelephone() {
+        return telephone;
     }
 
 }

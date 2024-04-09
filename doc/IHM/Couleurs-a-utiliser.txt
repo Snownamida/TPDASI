@@ -1,0 +1,8 @@
+couleurs pour l'IHM :
+
+#797be4 violet
+#bfc0ef violet clair
+#7be479 vert
+#e47979 rouge
+#76766b gris foncé
+#f0f0ea beige arrière plan
