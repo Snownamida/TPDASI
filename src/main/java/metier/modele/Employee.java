@@ -5,6 +5,8 @@
  */
 package metier.modele;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import javax.persistence.Id;
  * @author jsun
  */
 @Entity
-public class Employee {
+public class Employee implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +34,7 @@ public class Employee {
     @Override
     public String toString() {
         return String.format("Employee[id=%d, nom=%s, prenom=%s, mail=%s, telephone=%s, genre=%s]",
-                id, nom, prenom, email, telephone,genre);
+                id, nom, prenom, email, telephone, genre);
     }
 
     protected Employee() {
